@@ -1,14 +1,26 @@
+aid: litmus
 name: Litmus
-description: Email testing and analytics platform that allows developers and marketers
-  to preview, test, and analyze email campaigns across multiple email clients and
-  devices before sending.
-url: https://www.litmus.com/
+description: >-
+  Email testing and analytics platform that allows developers and marketers
+  to preview, test, and analyze email campaigns across multiple email clients
+  and devices before sending.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-- Email Testing
-- Marketing Tools
-- Quality Assurance
-- Developer Tools
-created: '2025'
-modified: '2025'
+  - Email Testing
+  - Marketing Tools
+  - Quality Assurance
+  - Developer Tools
+url: https://raw.githubusercontent.com/api-evangelist/litmus/refs/heads/main/apis.yml
+created: '2025-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 apis: []
-common: []
+common:
+  - url: https://www.litmus.com/
+    type: Website
+  - url: https://litmus.com/developer/
+    type: Documentation
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
