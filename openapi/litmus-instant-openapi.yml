@@ -1,0 +1,317 @@
+openapi: 3.1.0
+info:
+  title: Litmus Instant API
+  description: >-
+    The Litmus Instant API provides REST endpoints for generating email preview
+    screenshots across 40+ email clients by submitting HTML directly without
+    needing to send an actual email. It is used by email editors and ESP
+    integrations to deliver real-time rendering previews within their own
+    platforms. Authentication is via OAuth 2.0 access tokens.
+  version: '1.0.0'
+  contact:
+    name: Litmus Support
+    url: https://www.litmus.com/support/
+  termsOfService: https://www.litmus.com/terms-of-service/
+externalDocs:
+  description: Litmus Instant API Documentation
+  url: https://docs.litmus.com/instant
+servers:
+  - url: https://instant-api.litmus.com/v1
+    description: Litmus Instant API Production Server
+tags:
+  - name: Previews
+    description: Email preview generation and management
+  - name: Clients
+    description: Available email client configurations
+security:
+  - bearerAuth: []
+paths:
+  /emails:
+    post:
+      operationId: createEmailPreview
+      summary: Create an email preview
+      description: >-
+        Submits email HTML to generate previews across one or more email clients.
+        The request body includes the HTML source and a list of email client
+        identifiers. Returns a preview object with a unique ID that can be used
+        to retrieve individual client screenshots once rendering is complete.
+      tags:
+        - Previews
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEmailPreviewRequest'
+      responses:
+        '201':
+          description: Email preview created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailPreview'
+        '400':
+          description: Invalid request body or HTML content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /emails/{emailGuid}:
+    get:
+      operationId: getEmailPreview
+      summary: Get email preview
+      description: >-
+        Retrieves the status and results of an email preview by its GUID.
+        Returns the overall preview state and the rendering status for each
+        requested email client. Poll this endpoint until all client results
+        show a completed status.
+      tags:
+        - Previews
+      parameters:
+        - $ref: '#/components/parameters/emailGuidParam'
+      responses:
+        '200':
+          description: Email preview details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailPreview'
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Email preview not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /emails/{emailGuid}/previews/{clientId}:
+    get:
+      operationId: getClientPreview
+      summary: Get client preview screenshot
+      description: >-
+        Retrieves the rendered screenshot and metadata for a specific email
+        client within an email preview. Returns URLs for the full-size and
+        thumbnail image captures once the client rendering status is complete.
+      tags:
+        - Previews
+      parameters:
+        - $ref: '#/components/parameters/emailGuidParam'
+        - $ref: '#/components/parameters/clientIdParam'
+      responses:
+        '200':
+          description: Client preview screenshot retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientPreview'
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Email preview or client not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /clients:
+    get:
+      operationId: listEmailClients
+      summary: List available email clients
+      description: >-
+        Returns the list of email client identifiers available for preview
+        generation. Each entry includes the client ID, display name, platform
+        category, and whether the client is currently available for rendering.
+      tags:
+        - Clients
+      responses:
+        '200':
+          description: List of available email clients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmailClient'
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 access token obtained via the Litmus OAuth flow
+  parameters:
+    emailGuidParam:
+      name: emailGuid
+      in: path
+      description: Unique identifier (GUID) for the email preview
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 550e8400-e29b-41d4-a716-446655440000
+    clientIdParam:
+      name: clientId
+      in: path
+      description: Email client identifier string
+      required: true
+      schema:
+        type: string
+        example: gmail_chrome
+  schemas:
+    CreateEmailPreviewRequest:
+      type: object
+      description: Request body for creating an email preview
+      required:
+        - html
+        - clients
+      properties:
+        html:
+          type: string
+          description: Full HTML source of the email to be previewed
+          example: '<html><body><h1>Hello World</h1></body></html>'
+        plain_text:
+          type: string
+          description: Optional plain text version of the email
+        subject:
+          type: string
+          description: Email subject line shown in clients that render subject previews
+          maxLength: 998
+        from_address:
+          type: string
+          format: email
+          description: Sender email address used for spam filter context
+          example: sender@example.com
+        clients:
+          type: array
+          description: >-
+            List of email client identifiers to generate previews for. Use
+            the /clients endpoint to retrieve valid identifiers.
+          items:
+            type: string
+          minItems: 1
+          example:
+            - gmail_chrome
+            - outlook_2019
+            - apple_mail_14
+    EmailPreview:
+      type: object
+      description: An email preview with rendering results across email clients
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the email preview
+          example: 550e8400-e29b-41d4-a716-446655440000
+        status:
+          type: string
+          description: Overall status of the preview rendering job
+          enum:
+            - pending
+            - processing
+            - complete
+            - failed
+          example: complete
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the preview was created
+        completed_at:
+          type: string
+          format: date-time
+          description: Timestamp when all client renders completed
+        previews:
+          type: array
+          description: List of per-client preview results
+          items:
+            $ref: '#/components/schemas/ClientPreview'
+    ClientPreview:
+      type: object
+      description: Rendered preview result for a single email client
+      properties:
+        client_id:
+          type: string
+          description: Email client identifier for this preview
+          example: gmail_chrome
+        status:
+          type: string
+          description: Rendering status for this client
+          enum:
+            - pending
+            - processing
+            - complete
+            - failed
+            - unavailable
+          example: complete
+        full_url:
+          type: string
+          format: uri
+          description: URL to the full-size rendered screenshot image
+          example: https://litmus-screenshots.s3.amazonaws.com/full/abc123.png
+        thumb_url:
+          type: string
+          format: uri
+          description: URL to the thumbnail rendered screenshot image
+          example: https://litmus-screenshots.s3.amazonaws.com/thumb/abc123.png
+        orientation:
+          type: string
+          description: Rendering orientation of the screenshot
+          enum:
+            - desktop
+            - mobile
+          example: desktop
+    EmailClient:
+      type: object
+      description: An email client available for preview rendering
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the email client
+          example: gmail_chrome
+        name:
+          type: string
+          description: Human-readable display name of the email client
+          example: Gmail (Chrome)
+        platform:
+          type: string
+          description: Platform category of the email client
+          enum:
+            - desktop
+            - mobile
+            - webmail
+          example: webmail
+        available:
+          type: boolean
+          description: Whether this client is currently available for rendering
+          example: true
+    Error:
+      type: object
+      description: An API error response
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: Invalid or expired access token
+        code:
+          type: string
+          description: Machine-readable error code
+          example: unauthorized

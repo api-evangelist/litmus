@@ -1,0 +1,213 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "litmus": "https://litmus.com/vocab#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "EmailTest": "litmus:EmailTest",
+    "PreviewResult": "litmus:PreviewResult",
+    "SpamResult": "litmus:SpamResult",
+    "LinkResult": "litmus:LinkResult",
+    "EmailClient": "litmus:EmailClient",
+    "Campaign": "litmus:Campaign",
+    "CampaignSummary": "litmus:CampaignSummary",
+
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+
+    "id": {
+      "@id": "schema:identifier",
+      "@type": "xsd:string"
+    },
+    "guid": {
+      "@id": "schema:identifier",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "litmus:status",
+      "@type": "xsd:string"
+    },
+    "subject": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "from_address": {
+      "@id": "schema:email",
+      "@type": "xsd:string"
+    },
+    "from_name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+
+    "html": {
+      "@id": "schema:text",
+      "@type": "xsd:string"
+    },
+    "plain_text": {
+      "@id": "schema:text",
+      "@type": "xsd:string"
+    },
+
+    "client": {
+      "@id": "litmus:emailClientId",
+      "@type": "xsd:string"
+    },
+    "client_name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "platform": {
+      "@id": "litmus:platform",
+      "@type": "xsd:string"
+    },
+    "orientation": {
+      "@id": "litmus:orientation",
+      "@type": "xsd:string"
+    },
+    "available": {
+      "@id": "schema:Boolean",
+      "@type": "xsd:boolean"
+    },
+
+    "full_image_url": {
+      "@id": "schema:image",
+      "@type": "@id"
+    },
+    "thumb_image_url": {
+      "@id": "schema:thumbnail",
+      "@type": "@id"
+    },
+    "tracking_pixel_url": {
+      "@id": "litmus:trackingPixelUrl",
+      "@type": "@id"
+    },
+
+    "filter": {
+      "@id": "litmus:spamFilter",
+      "@type": "xsd:string"
+    },
+    "is_spam": {
+      "@id": "litmus:isSpam",
+      "@type": "xsd:boolean"
+    },
+    "score": {
+      "@id": "litmus:spamScore",
+      "@type": "xsd:decimal"
+    },
+    "threshold": {
+      "@id": "litmus:spamThreshold",
+      "@type": "xsd:decimal"
+    },
+
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "redirect_url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "status_code": {
+      "@id": "litmus:httpStatusCode",
+      "@type": "xsd:integer"
+    },
+    "reachable": {
+      "@id": "litmus:isReachable",
+      "@type": "xsd:boolean"
+    },
+
+    "total_opens": {
+      "@id": "litmus:totalOpens",
+      "@type": "xsd:integer"
+    },
+    "unique_opens": {
+      "@id": "litmus:uniqueOpens",
+      "@type": "xsd:integer"
+    },
+    "forwards": {
+      "@id": "litmus:forwardCount",
+      "@type": "xsd:integer"
+    },
+    "prints": {
+      "@id": "litmus:printCount",
+      "@type": "xsd:integer"
+    },
+    "read_rate": {
+      "@id": "litmus:readRate",
+      "@type": "xsd:decimal"
+    },
+    "skim_rate": {
+      "@id": "litmus:skimRate",
+      "@type": "xsd:decimal"
+    },
+    "glance_rate": {
+      "@id": "litmus:glanceRate",
+      "@type": "xsd:decimal"
+    },
+    "delete_rate": {
+      "@id": "litmus:deleteRate",
+      "@type": "xsd:decimal"
+    },
+    "percentage": {
+      "@id": "litmus:percentage",
+      "@type": "xsd:decimal"
+    },
+    "count": {
+      "@id": "schema:Number",
+      "@type": "xsd:integer"
+    },
+
+    "country": {
+      "@id": "schema:addressCountry",
+      "@type": "xsd:string"
+    },
+    "country_code": {
+      "@id": "schema:addressCountry",
+      "@type": "xsd:string"
+    },
+
+    "device_type": {
+      "@id": "schema:device",
+      "@type": "xsd:string"
+    },
+
+    "previews": {
+      "@id": "litmus:previewResult",
+      "@container": "@set"
+    },
+    "spam_results": {
+      "@id": "litmus:spamResult",
+      "@container": "@set"
+    },
+    "link_results": {
+      "@id": "litmus:linkResult",
+      "@container": "@set"
+    },
+    "clients": {
+      "@id": "litmus:emailClient",
+      "@container": "@set"
+    },
+    "tags": {
+      "@id": "schema:keywords",
+      "@container": "@set"
+    },
+
+    "created_at": {
+      "@id": "dcterms:created",
+      "@type": "xsd:dateTime"
+    },
+    "completed_at": {
+      "@id": "litmus:completedAt",
+      "@type": "xsd:dateTime"
+    }
+  }
+}

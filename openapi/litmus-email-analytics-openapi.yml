@@ -1,0 +1,577 @@
+openapi: 3.1.0
+info:
+  title: Litmus Email Analytics API
+  description: >-
+    The Litmus Email Analytics API provides REST endpoints for retrieving email
+    campaign engagement metrics including read rates, deletion rates, device
+    types, email clients, geographic data, and forwarding activity. Campaign
+    data is accessed by GUID and returns detailed activity summary reports.
+    Analytics data is collected via a tracking pixel embedded in sent emails
+    and the API surfaces aggregated engagement breakdowns.
+  version: '1.0.0'
+  contact:
+    name: Litmus Support
+    url: https://www.litmus.com/support/
+  termsOfService: https://www.litmus.com/terms-of-service/
+externalDocs:
+  description: Litmus Email Analytics API Documentation
+  url: https://docs.litmus.com/email-analytics
+servers:
+  - url: https://analytics-api.litmus.com/api/v1
+    description: Litmus Email Analytics API Production Server
+tags:
+  - name: Campaigns
+    description: Email campaign tracking and management
+  - name: Analytics
+    description: Campaign engagement metrics and breakdowns
+security:
+  - basicAuth: []
+paths:
+  /campaigns:
+    get:
+      operationId: listCampaigns
+      summary: List campaigns
+      description: >-
+        Returns a paginated list of tracked email campaigns associated with the
+        authenticated account. Each campaign entry includes its GUID, name,
+        creation date, and a summary of total opens tracked so far.
+      tags:
+        - Campaigns
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perPageParam'
+      responses:
+        '200':
+          description: Paginated list of campaigns
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignList'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createCampaign
+      summary: Create a campaign
+      description: >-
+        Creates a new campaign tracking entry and returns a tracking GUID and
+        pixel URL to embed in the email HTML. The tracking pixel collects
+        engagement data when recipients open the email.
+      tags:
+        - Campaigns
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCampaignRequest'
+      responses:
+        '201':
+          description: Campaign created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns/{campaignGuid}:
+    get:
+      operationId: getCampaign
+      summary: Get a campaign
+      description: >-
+        Retrieves a specific campaign by its GUID including basic metadata and
+        aggregate open count. Use the analytics sub-resources to retrieve
+        detailed engagement breakdowns.
+      tags:
+        - Campaigns
+      parameters:
+        - $ref: '#/components/parameters/campaignGuidParam'
+      responses:
+        '200':
+          description: Campaign retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteCampaign
+      summary: Delete a campaign
+      description: >-
+        Permanently deletes a campaign and all associated tracking data from the
+        account. This action cannot be undone and will stop collection of new
+        engagement events for the campaign.
+      tags:
+        - Campaigns
+      parameters:
+        - $ref: '#/components/parameters/campaignGuidParam'
+      responses:
+        '204':
+          description: Campaign deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns/{campaignGuid}/summary:
+    get:
+      operationId: getCampaignSummary
+      summary: Get campaign engagement summary
+      description: >-
+        Returns a high-level engagement summary for the campaign including total
+        opens, unique opens, read time distribution, deletion rate, forwarding
+        count, and print count. Provides the core metrics for evaluating
+        campaign performance.
+      tags:
+        - Analytics
+      parameters:
+        - $ref: '#/components/parameters/campaignGuidParam'
+      responses:
+        '200':
+          description: Campaign engagement summary
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignSummary'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns/{campaignGuid}/clients:
+    get:
+      operationId: getCampaignClientBreakdown
+      summary: Get campaign email client breakdown
+      description: >-
+        Returns a breakdown of campaign opens by email client, showing the
+        count and percentage of opens recorded from each detected email client
+        such as Gmail, Apple Mail, Outlook, and others.
+      tags:
+        - Analytics
+      parameters:
+        - $ref: '#/components/parameters/campaignGuidParam'
+      responses:
+        '200':
+          description: Email client breakdown for the campaign
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientBreakdownEntry'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns/{campaignGuid}/geo:
+    get:
+      operationId: getCampaignGeoBreakdown
+      summary: Get campaign geographic breakdown
+      description: >-
+        Returns a geographic breakdown of campaign opens by country and region.
+        Each entry includes the country name, ISO country code, open count,
+        and percentage share of total opens.
+      tags:
+        - Analytics
+      parameters:
+        - $ref: '#/components/parameters/campaignGuidParam'
+      responses:
+        '200':
+          description: Geographic breakdown of campaign opens
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GeoBreakdownEntry'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns/{campaignGuid}/devices:
+    get:
+      operationId: getCampaignDeviceBreakdown
+      summary: Get campaign device breakdown
+      description: >-
+        Returns a breakdown of campaign opens by device type including desktop,
+        mobile, and tablet. Shows the count and percentage of opens for each
+        device category.
+      tags:
+        - Analytics
+      parameters:
+        - $ref: '#/components/parameters/campaignGuidParam'
+      responses:
+        '200':
+          description: Device type breakdown of campaign opens
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeviceBreakdownEntry'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns/{campaignGuid}/read-times:
+    get:
+      operationId: getCampaignReadTimes
+      summary: Get campaign read time distribution
+      description: >-
+        Returns the distribution of how long recipients spent reading the email.
+        Categorizes reads into glanced (under 2 seconds), skimmed (2-8 seconds),
+        and read (over 8 seconds) buckets with counts and percentages.
+      tags:
+        - Analytics
+      parameters:
+        - $ref: '#/components/parameters/campaignGuidParam'
+      responses:
+        '200':
+          description: Read time distribution for the campaign
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadTimeDistribution'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using Litmus account username and password
+  parameters:
+    campaignGuidParam:
+      name: campaignGuid
+      in: path
+      description: Unique identifier (GUID) for the email campaign
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 550e8400-e29b-41d4-a716-446655440000
+    pageParam:
+      name: page
+      in: query
+      description: Page number for paginated results (1-based)
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    perPageParam:
+      name: per_page
+      in: query
+      description: Number of results per page
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  schemas:
+    CreateCampaignRequest:
+      type: object
+      description: Request body for creating a new campaign tracking entry
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Human-readable name for the campaign
+          example: March Newsletter 2026
+          maxLength: 255
+        tags:
+          type: array
+          description: Optional tags for organizing campaigns
+          items:
+            type: string
+          example:
+            - newsletter
+            - Q1-2026
+    CampaignList:
+      type: object
+      description: Paginated list of campaigns
+      properties:
+        campaigns:
+          type: array
+          description: Array of campaign summaries
+          items:
+            $ref: '#/components/schemas/Campaign'
+        total:
+          type: integer
+          description: Total number of campaigns in the account
+          example: 54
+        page:
+          type: integer
+          description: Current page number
+          example: 1
+        per_page:
+          type: integer
+          description: Number of campaigns per page
+          example: 25
+    Campaign:
+      type: object
+      description: An email campaign tracking entry
+      properties:
+        guid:
+          type: string
+          format: uuid
+          description: Unique identifier for the campaign
+          example: 550e8400-e29b-41d4-a716-446655440000
+        name:
+          type: string
+          description: Human-readable name of the campaign
+          example: March Newsletter 2026
+        tracking_pixel_url:
+          type: string
+          format: uri
+          description: URL of the tracking pixel to embed in the email HTML
+          example: https://analytics.litmus.com/t/550e8400-e29b-41d4-a716-446655440000.gif
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the campaign was created
+        total_opens:
+          type: integer
+          description: Total number of opens tracked for this campaign
+          example: 4832
+        tags:
+          type: array
+          description: Tags assigned to the campaign
+          items:
+            type: string
+    CampaignSummary:
+      type: object
+      description: High-level engagement metrics for an email campaign
+      properties:
+        total_opens:
+          type: integer
+          description: Total number of opens recorded
+          example: 4832
+        unique_opens:
+          type: integer
+          description: Number of unique recipients who opened the email
+          example: 3201
+        forwards:
+          type: integer
+          description: Number of times the email was forwarded
+          example: 47
+        prints:
+          type: integer
+          description: Number of times the email was printed
+          example: 12
+        read_rate:
+          type: number
+          format: float
+          description: Percentage of opens where recipients read the email for over 8 seconds
+          minimum: 0
+          maximum: 100
+          example: 42.5
+        skim_rate:
+          type: number
+          format: float
+          description: Percentage of opens where recipients skimmed (2-8 seconds)
+          minimum: 0
+          maximum: 100
+          example: 31.2
+        glance_rate:
+          type: number
+          format: float
+          description: Percentage of opens where recipients glanced (under 2 seconds)
+          minimum: 0
+          maximum: 100
+          example: 26.3
+        delete_rate:
+          type: number
+          format: float
+          description: Percentage of opens followed by deletion
+          minimum: 0
+          maximum: 100
+          example: 18.7
+    ClientBreakdownEntry:
+      type: object
+      description: Campaign opens attributed to a single email client
+      properties:
+        client:
+          type: string
+          description: Name of the email client
+          example: Gmail
+        opens:
+          type: integer
+          description: Number of opens from this email client
+          example: 1842
+        percentage:
+          type: number
+          format: float
+          description: Percentage of total opens from this email client
+          minimum: 0
+          maximum: 100
+          example: 38.1
+    GeoBreakdownEntry:
+      type: object
+      description: Campaign opens attributed to a single country
+      properties:
+        country:
+          type: string
+          description: Country name
+          example: United States
+        country_code:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          pattern: '^[A-Z]{2}$'
+          example: US
+        opens:
+          type: integer
+          description: Number of opens from this country
+          example: 2841
+        percentage:
+          type: number
+          format: float
+          description: Percentage of total opens from this country
+          minimum: 0
+          maximum: 100
+          example: 58.8
+    DeviceBreakdownEntry:
+      type: object
+      description: Campaign opens attributed to a device category
+      properties:
+        device_type:
+          type: string
+          description: Device category
+          enum:
+            - desktop
+            - mobile
+            - tablet
+            - unknown
+          example: mobile
+        opens:
+          type: integer
+          description: Number of opens from this device type
+          example: 2156
+        percentage:
+          type: number
+          format: float
+          description: Percentage of total opens from this device type
+          minimum: 0
+          maximum: 100
+          example: 44.6
+    ReadTimeDistribution:
+      type: object
+      description: Distribution of recipient read times for a campaign
+      properties:
+        glanced:
+          $ref: '#/components/schemas/ReadTimeBucket'
+        skimmed:
+          $ref: '#/components/schemas/ReadTimeBucket'
+        read:
+          $ref: '#/components/schemas/ReadTimeBucket'
+    ReadTimeBucket:
+      type: object
+      description: A read time engagement bucket with count and percentage
+      properties:
+        label:
+          type: string
+          description: Human-readable label for the bucket
+          example: Read
+        seconds_range:
+          type: string
+          description: Description of the time range this bucket covers
+          example: '>8 seconds'
+        count:
+          type: integer
+          description: Number of opens falling in this bucket
+          example: 2054
+        percentage:
+          type: number
+          format: float
+          description: Percentage of total opens falling in this bucket
+          minimum: 0
+          maximum: 100
+          example: 42.5
+    Error:
+      type: object
+      description: An API error response
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication required
+        code:
+          type: string
+          description: Machine-readable error code
+          example: unauthorized

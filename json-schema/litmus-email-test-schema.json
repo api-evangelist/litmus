@@ -1,0 +1,201 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://litmus.com/schemas/litmus/email-test.json",
+  "title": "Litmus Email Test",
+  "description": "Schema for Litmus email test objects representing preview rendering, spam filter, and link-check test requests and results across email clients and filter services.",
+  "type": "object",
+  "required": ["id", "status"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique numeric identifier for the email test",
+      "example": 12345678
+    },
+    "status": {
+      "type": "string",
+      "description": "Overall processing status of the email test",
+      "enum": ["pending", "processing", "complete", "failed"]
+    },
+    "subject": {
+      "type": "string",
+      "description": "Email subject line submitted for testing",
+      "maxLength": 998
+    },
+    "from_address": {
+      "type": "string",
+      "format": "email",
+      "description": "Sender email address used in spam filter evaluation"
+    },
+    "from_name": {
+      "type": "string",
+      "description": "Sender display name used in spam filter context"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the test was created"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when all requested test types completed"
+    },
+    "previews_requested": {
+      "type": "boolean",
+      "description": "Whether email client preview rendering was included in this test"
+    },
+    "spam_requested": {
+      "type": "boolean",
+      "description": "Whether spam filter testing was included in this test"
+    },
+    "links_requested": {
+      "type": "boolean",
+      "description": "Whether link reachability checking was included in this test"
+    },
+    "previews": {
+      "type": "array",
+      "description": "Rendering results for each requested email client",
+      "items": {
+        "$ref": "#/$defs/PreviewResult"
+      }
+    },
+    "spam_results": {
+      "type": "array",
+      "description": "Results from each spam filter service checked",
+      "items": {
+        "$ref": "#/$defs/SpamResult"
+      }
+    },
+    "link_results": {
+      "type": "array",
+      "description": "Reachability results for each URL found in the email HTML",
+      "items": {
+        "$ref": "#/$defs/LinkResult"
+      }
+    }
+  },
+  "$defs": {
+    "PreviewResult": {
+      "type": "object",
+      "description": "Email rendering result for a single email client",
+      "required": ["client", "status"],
+      "properties": {
+        "client": {
+          "type": "string",
+          "description": "Email client slug identifier",
+          "example": "GMAIL"
+        },
+        "client_name": {
+          "type": "string",
+          "description": "Human-readable display name of the email client",
+          "example": "Gmail"
+        },
+        "platform": {
+          "type": "string",
+          "description": "Platform category of the email client",
+          "enum": ["desktop", "mobile", "webmail"]
+        },
+        "status": {
+          "type": "string",
+          "description": "Rendering completion status for this client",
+          "enum": ["pending", "processing", "complete", "failed", "unavailable"]
+        },
+        "full_image_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the full-size rendered screenshot image"
+        },
+        "thumb_image_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the thumbnail rendered screenshot image"
+        },
+        "orientation": {
+          "type": "string",
+          "description": "Display orientation of the rendered screenshot",
+          "enum": ["desktop", "mobile"]
+        }
+      }
+    },
+    "SpamResult": {
+      "type": "object",
+      "description": "Result from a single spam filter service",
+      "required": ["filter", "status"],
+      "properties": {
+        "filter": {
+          "type": "string",
+          "description": "Name of the spam filter service",
+          "example": "SpamAssassin"
+        },
+        "is_spam": {
+          "type": "boolean",
+          "description": "Whether the email was flagged as spam by this filter"
+        },
+        "score": {
+          "type": "number",
+          "description": "Spam score returned by the filter (scale varies by provider)"
+        },
+        "threshold": {
+          "type": "number",
+          "description": "Spam score threshold above which the filter flags messages as spam"
+        },
+        "status": {
+          "type": "string",
+          "description": "Processing status of the spam filter check",
+          "enum": ["pending", "complete", "failed"]
+        }
+      }
+    },
+    "LinkResult": {
+      "type": "object",
+      "description": "Reachability check result for a single URL found in the email HTML",
+      "required": ["url"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL that was checked for reachability"
+        },
+        "status_code": {
+          "type": "integer",
+          "description": "HTTP status code returned when the URL was fetched",
+          "minimum": 100,
+          "maximum": 599
+        },
+        "reachable": {
+          "type": "boolean",
+          "description": "Whether the URL was successfully reachable at time of test"
+        },
+        "redirect_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Final destination URL after HTTP redirects, if applicable"
+        }
+      }
+    },
+    "EmailClient": {
+      "type": "object",
+      "description": "An email client available for preview rendering",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier or slug for the email client"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable display name of the email client"
+        },
+        "platform": {
+          "type": "string",
+          "description": "Platform category of the email client",
+          "enum": ["desktop", "mobile", "webmail"]
+        },
+        "available": {
+          "type": "boolean",
+          "description": "Whether this client is currently available for rendering"
+        }
+      }
+    }
+  }
+}
