@@ -20,10 +20,10 @@ servers:
   - url: https://analytics-api.litmus.com/api/v1
     description: Litmus Email Analytics API Production Server
 tags:
-  - name: Campaigns
-    description: Email campaign tracking and management
   - name: Analytics
     description: Campaign engagement metrics and breakdowns
+  - name: Campaigns
+    description: Email campaign tracking and management
 security:
   - basicAuth: []
 paths:

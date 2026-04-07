@@ -19,10 +19,10 @@ servers:
   - url: https://instant-api.litmus.com/v1
     description: Litmus Instant API Production Server
 tags:
-  - name: Previews
-    description: Email preview generation and management
   - name: Clients
     description: Available email client configurations
+  - name: Previews
+    description: Email preview generation and management
 security:
   - bearerAuth: []
 paths:

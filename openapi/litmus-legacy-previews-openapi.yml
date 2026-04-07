@@ -19,12 +19,12 @@ servers:
   - url: https://previews-api.litmus.com/api/v1
     description: Litmus Legacy Previews API Production Server
 tags:
-  - name: Tests
-    description: Email test creation and management
-  - name: Results
-    description: Test result retrieval
   - name: Clients
     description: Available email client configurations
+  - name: Results
+    description: Test result retrieval
+  - name: Tests
+    description: Email test creation and management
 security:
   - basicAuth: []
 paths:

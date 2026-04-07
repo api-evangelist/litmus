@@ -7,10 +7,10 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
+  - Developer Tools
   - Email Testing
   - Marketing Tools
   - Quality Assurance
-  - Developer Tools
 url: https://raw.githubusercontent.com/api-evangelist/litmus/refs/heads/main/apis.yml
 created: '2025-01-01'
 modified: '2026-03-18'
@@ -27,10 +27,10 @@ apis:
     humanURL: https://docs.litmus.com/instant
     baseURL: https://instant-api.litmus.com/v1
     tags:
+      - Email Clients
       - Email Testing
       - Previews
       - REST API
-      - Email Clients
     properties:
       - type: Documentation
         url: https://docs.litmus.com/instant
@@ -49,9 +49,9 @@ apis:
     baseURL: https://previews-api.litmus.com/api/v1
     tags:
       - Email Testing
-      - Spam Testing
       - Previews
       - REST API
+      - Spam Testing
     properties:
       - type: Documentation
         url: https://docs.litmus.com/legacy-previews
@@ -68,10 +68,10 @@ apis:
     humanURL: https://docs.litmus.com/email-analytics
     baseURL: https://analytics-api.litmus.com/api/v1
     tags:
-      - Email Analytics
       - Campaign Metrics
-      - REST API
+      - Email Analytics
       - Reporting
+      - REST API
     properties:
       - type: Documentation
         url: https://docs.litmus.com/email-analytics
