@@ -29,7 +29,7 @@ paths:
   /emails:
     post:
       operationId: createEmailPreview
-      summary: Create an email preview
+      summary: Litmus Create an email preview
       description: >-
         Submits email HTML to generate previews across one or more email clients.
         The request body includes the HTML source and a list of email client
@@ -65,7 +65,7 @@ paths:
   /emails/{emailGuid}:
     get:
       operationId: getEmailPreview
-      summary: Get email preview
+      summary: Litmus Get email preview
       description: >-
         Retrieves the status and results of an email preview by its GUID.
         Returns the overall preview state and the rendering status for each
@@ -97,7 +97,7 @@ paths:
   /emails/{emailGuid}/previews/{clientId}:
     get:
       operationId: getClientPreview
-      summary: Get client preview screenshot
+      summary: Litmus Get client preview screenshot
       description: >-
         Retrieves the rendered screenshot and metadata for a specific email
         client within an email preview. Returns URLs for the full-size and
@@ -129,7 +129,7 @@ paths:
   /clients:
     get:
       operationId: listEmailClients
-      summary: List available email clients
+      summary: Litmus List available email clients
       description: >-
         Returns the list of email client identifiers available for preview
         generation. Each entry includes the client ID, display name, platform

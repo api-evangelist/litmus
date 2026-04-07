@@ -30,7 +30,7 @@ paths:
   /campaigns:
     get:
       operationId: listCampaigns
-      summary: List campaigns
+      summary: Litmus List campaigns
       description: >-
         Returns a paginated list of tracked email campaigns associated with the
         authenticated account. Each campaign entry includes its GUID, name,
@@ -55,7 +55,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: createCampaign
-      summary: Create a campaign
+      summary: Litmus Create a campaign
       description: >-
         Creates a new campaign tracking entry and returns a tracking GUID and
         pixel URL to embed in the email HTML. The tracking pixel collects
@@ -90,7 +90,7 @@ paths:
   /campaigns/{campaignGuid}:
     get:
       operationId: getCampaign
-      summary: Get a campaign
+      summary: Litmus Get a campaign
       description: >-
         Retrieves a specific campaign by its GUID including basic metadata and
         aggregate open count. Use the analytics sub-resources to retrieve
@@ -120,7 +120,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     delete:
       operationId: deleteCampaign
-      summary: Delete a campaign
+      summary: Litmus Delete a campaign
       description: >-
         Permanently deletes a campaign and all associated tracking data from the
         account. This action cannot be undone and will stop collection of new
@@ -147,7 +147,7 @@ paths:
   /campaigns/{campaignGuid}/summary:
     get:
       operationId: getCampaignSummary
-      summary: Get campaign engagement summary
+      summary: Litmus Get campaign engagement summary
       description: >-
         Returns a high-level engagement summary for the campaign including total
         opens, unique opens, read time distribution, deletion rate, forwarding
@@ -179,7 +179,7 @@ paths:
   /campaigns/{campaignGuid}/clients:
     get:
       operationId: getCampaignClientBreakdown
-      summary: Get campaign email client breakdown
+      summary: Litmus Get campaign email client breakdown
       description: >-
         Returns a breakdown of campaign opens by email client, showing the
         count and percentage of opens recorded from each detected email client
@@ -212,7 +212,7 @@ paths:
   /campaigns/{campaignGuid}/geo:
     get:
       operationId: getCampaignGeoBreakdown
-      summary: Get campaign geographic breakdown
+      summary: Litmus Get campaign geographic breakdown
       description: >-
         Returns a geographic breakdown of campaign opens by country and region.
         Each entry includes the country name, ISO country code, open count,
@@ -245,7 +245,7 @@ paths:
   /campaigns/{campaignGuid}/devices:
     get:
       operationId: getCampaignDeviceBreakdown
-      summary: Get campaign device breakdown
+      summary: Litmus Get campaign device breakdown
       description: >-
         Returns a breakdown of campaign opens by device type including desktop,
         mobile, and tablet. Shows the count and percentage of opens for each
@@ -278,7 +278,7 @@ paths:
   /campaigns/{campaignGuid}/read-times:
     get:
       operationId: getCampaignReadTimes
-      summary: Get campaign read time distribution
+      summary: Litmus Get campaign read time distribution
       description: >-
         Returns the distribution of how long recipients spent reading the email.
         Categorizes reads into glanced (under 2 seconds), skimmed (2-8 seconds),

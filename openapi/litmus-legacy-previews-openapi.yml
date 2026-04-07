@@ -31,7 +31,7 @@ paths:
   /tests:
     get:
       operationId: listTests
-      summary: List tests
+      summary: Litmus List tests
       description: >-
         Returns a paginated list of all email tests run under the authenticated
         account. Each test entry includes the test type, creation timestamp,
@@ -56,7 +56,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: createTest
-      summary: Create a test
+      summary: Litmus Create a test
       description: >-
         Creates a new email test by submitting email HTML, subject, and optional
         sender details. The test type (preview, spam, links) determines which
@@ -92,7 +92,7 @@ paths:
   /tests/{testId}:
     get:
       operationId: getTest
-      summary: Get a test
+      summary: Litmus Get a test
       description: >-
         Retrieves a specific email test by its numeric ID. Returns the test
         status and all available results. Poll this endpoint until the test
@@ -122,7 +122,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     delete:
       operationId: deleteTest
-      summary: Delete a test
+      summary: Litmus Delete a test
       description: >-
         Permanently deletes an email test and all associated results from the
         Litmus account. This action cannot be undone.
@@ -148,7 +148,7 @@ paths:
   /tests/{testId}/previews:
     get:
       operationId: listTestPreviews
-      summary: List email client previews for a test
+      summary: Litmus List email client previews for a test
       description: >-
         Returns the list of email client rendering results for a preview test.
         Each result includes the client identifier, rendering status, and
@@ -181,7 +181,7 @@ paths:
   /tests/{testId}/spam:
     get:
       operationId: getSpamTestResults
-      summary: Get spam filter test results
+      summary: Litmus Get spam filter test results
       description: >-
         Returns spam filter test results for the specified test, including the
         result from each tested spam filter service. Each result shows whether
@@ -214,7 +214,7 @@ paths:
   /tests/{testId}/links:
     get:
       operationId: getLinkCheckResults
-      summary: Get link check results
+      summary: Litmus Get link check results
       description: >-
         Returns the link-check results for all URLs found in the tested email
         HTML. Each entry indicates the URL, its HTTP status code, and whether
@@ -247,7 +247,7 @@ paths:
   /clients:
     get:
       operationId: listLegacyClients
-      summary: List available email clients
+      summary: Litmus List available email clients
       description: >-
         Returns the full list of email clients available for legacy preview
         testing, including desktop, mobile, and webmail clients. Each entry
