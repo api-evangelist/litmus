@@ -1,0 +1,13 @@
+{
+  "repo": "litmus",
+  "feeds": [
+    {
+      "source": "https://www.litmus.com/blog/",
+      "feed_url": "https://www.litmus.com/blog/feed",
+      "saved": 10,
+      "title": "Blog - Litmus"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:30:46Z"
+}
