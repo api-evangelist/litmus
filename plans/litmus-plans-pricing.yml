@@ -4,164 +4,194 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Litmus
 providerId: litmus
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Developer Tools
   - Email Testing
   - Marketing Tools
   - Quality Assurance
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: Litmus consolidates pricing under a single Litmus Enterprise plan with unlimited seats and
+  unlimited usage; specific pricing is not public and is provided by Litmus sales. Functionality is extended
+  via five paid add-ons (Deliverability, Sender Certification, Competitive Intel, Email Guardian, Mailcharts).
+  API access (Litmus Instant API) is partner-program-gated and evaluated case-by-case.
+sources:
+  - https://www.litmus.com/pricing
+  - https://docs.litmus.com/instant
 plans:
-  - id: litmus-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Litmus API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://instant-api.litmus.com/v1
-          - https://previews-api.litmus.com/api/v1
-          - https://analytics-api.litmus.com/api/v1
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://instant-api.litmus.com/v1
-          - https://previews-api.litmus.com/api/v1
-          - https://analytics-api.litmus.com/api/v1
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Litmus Instant API
-      - name: Litmus Legacy Previews API
-      - name: Litmus Email Analytics API
-  - id: litmus-pro
-    name: Professional
-    type: paid
-    description: Production tier for Litmus. Provides higher quotas, priority support, and access to the
-      broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://instant-api.litmus.com/v1
-          - https://previews-api.litmus.com/api/v1
-          - https://analytics-api.litmus.com/api/v1
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://instant-api.litmus.com/v1
-          - https://previews-api.litmus.com/api/v1
-          - https://analytics-api.litmus.com/api/v1
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://instant-api.litmus.com/v1
-          - https://previews-api.litmus.com/api/v1
-          - https://analytics-api.litmus.com/api/v1
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Litmus Instant API
-      - name: Litmus Legacy Previews API
-      - name: Litmus Email Analytics API
   - id: litmus-enterprise
-    name: Enterprise
+    name: Litmus Enterprise
     type: enterprise
-    description: Custom-negotiated tier for Litmus. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
+    description: Litmus's primary commercial plan. Includes unlimited seats and unlimited usage of email
+      previews on 100+ clients/devices, personalization impressions, and full users / subaccounts. Pricing
+      is custom — contact sales.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Enterprise subscription
+        name: enterprise_base
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+      - label: Email previews
+        name: email_previews
+        type: metered
+        metric: preview
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: included
+        userMultiplied: false
+      - label: Full users
+        name: full_users
+        type: subscription
+        metric: seat
         limit: -1
         timeFrame: month
-        geo: configurable
-        domains:
-          - https://instant-api.litmus.com/v1
-          - https://previews-api.litmus.com/api/v1
-          - https://analytics-api.litmus.com/api/v1
+        geo: global
         unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://instant-api.litmus.com/v1
-          - https://previews-api.litmus.com/api/v1
-          - https://analytics-api.litmus.com/api/v1
+        price: included
+        userMultiplied: true
+      - label: Subaccounts
+        name: subaccounts
+        type: subscription
+        metric: subaccount
+        limit: -1
+        timeFrame: month
+        geo: global
         unit: 1
-        price: custom
+        price: included
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
+      - name: Unlimited seats and usage
+      - name: Email previews on 100+ clients & devices
+      - name: Unlimited personalization impressions
+      - name: Visual / code email builders
+      - name: Automated QA checks
+      - name: Personalization templates
+      - name: Enterprise integrations
+  - id: litmus-deliverability
+    name: Deliverability Upgrade
+    type: subscription
+    description: Optional add-on for inbox placement insights, 24/7 monitoring, and engagement analytics.
+      Pricing custom — contact sales.
+    entries:
+      - label: Deliverability add-on
+        name: deliverability
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+    elements:
+      - name: Inbox placement insights
+      - name: 24/7 monitoring
+      - name: Engagement analytics
+  - id: litmus-sender-certification
+    name: Sender Certification Upgrade
+    type: subscription
+    description: Optional add-on for allow-list placement, threat protection, and dedicated compliance
+      team. Pricing custom — contact sales.
+    entries:
+      - label: Sender Certification add-on
+        name: sender_certification
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+    elements:
+      - name: Allow-list placement
+      - name: Threat protection
+      - name: Dedicated compliance team
+  - id: litmus-competitive-intel
+    name: Competitive Intel Upgrade
+    type: subscription
+    description: Optional add-on for competitor send tracking and benchmarking. Pricing custom — contact
+      sales.
+    entries:
+      - label: Competitive Intel add-on
+        name: competitive_intel
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+    elements:
+      - name: Competitor send tracking
+      - name: Benchmarking
+  - id: litmus-email-guardian
+    name: Email Guardian Upgrade
+    type: subscription
+    description: Optional add-on for 24/7 email monitoring (broken links, image issues). Pricing custom
+      — contact sales.
+    entries:
+      - label: Email Guardian add-on
+        name: email_guardian
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+    elements:
+      - name: 24/7 monitoring
+      - name: Broken-link detection
+      - name: Image-issue detection
+  - id: litmus-mailcharts
+    name: Mailcharts Upgrade
+    type: subscription
+    description: Optional add-on for access to 2,500+ ecommerce brand email examples. Pricing custom
+      — contact sales.
+    entries:
+      - label: Mailcharts add-on
+        name: mailcharts
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+    elements:
+      - name: 2,500+ ecommerce brand examples
+      - name: Industry benchmarks
+  - id: litmus-instant-api
+    name: Litmus Instant API (Partner Program)
+    type: enterprise
+    description: API access for ESP / email-editor integrators. Access is evaluated case-by-case via
+      partners@litmus.com; pricing custom — contact sales.
+    entries:
+      - label: Partner API access
+        name: api_access
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+    elements:
       - name: Litmus Instant API
-      - name: Litmus Legacy Previews API
-      - name: Litmus Email Analytics API
+      - name: Email preview screenshots across 40+ clients
+      - name: Partner agreement required
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -4,95 +4,59 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Litmus
 providerId: litmus
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
-  - Developer Tools
-  - Email Testing
-  - Marketing Tools
-  - Quality Assurance
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Litmus API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  - Email Testing
+  - Developer Tools
+description: Litmus does not publish numeric request-per-second / per-minute rate limits for the Litmus
+  Instant API. Access is partner-program-gated (evaluated case-by-case via partners@litmus.com) and
+  per-partner throttling is configured under the partner agreement. The docs do publish performance
+  expectations and resource constraints (preview generation latency, retention windows, batch sizes)
+  rather than rate ceilings.
+notes: No public per-second / per-minute rate-limit numbers found. Partner-specific throttling is governed
+  by the Litmus partner agreement.
+sources:
+  - https://docs.litmus.com/instant
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
+  - name: Partner API rate limit
     scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Litmus Instant API
-      - Litmus Legacy Previews API
-      - Litmus Email Analytics API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
+    metric: varies
+    limit: see partner agreement
+    notes: Numeric ceilings are not published; configured per partner.
+  - name: Bulk delete batch size
+    scope: request
+    metric: ids_per_request
     limit: 1000
-    timeFrame: month
-    applies:
-      - Litmus Instant API
-      - Litmus Legacy Previews API
-      - Litmus Email Analytics API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Litmus Instant API
-      - Litmus Legacy Previews API
-      - Litmus Email Analytics API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Litmus Instant API
-      - Litmus Legacy Previews API
-      - Litmus Email Analytics API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Litmus Instant API
-      - Litmus Legacy Previews API
-      - Litmus Email Analytics API
+    notes: The delete email endpoint accepts up to 1,000 email_guid values per request.
+  - name: Uploaded email retention window
+    scope: resource
+    metric: hours
+    limit: 48
+    timeFrame: hour
+    notes: Uploaded emails remain available for 48 hours for requesting new captures (functional limit,
+      not a rate limit).
+  - name: Preview image retention
+    scope: resource
+    metric: days
+    limit: 180
+    timeFrame: day
+    notes: Preview image data persists for 180 days (functional limit, not a rate limit).
 policies:
+  - name: Partner program access
+    description: Litmus Instant API access is evaluated case-by-case; reach partners@litmus.com to start
+      the conversation.
+  - name: Asynchronous capture
+    description: Email client screenshots return within seconds (typical 3–11s depending on client);
+      Instant Preview test creation takes ~600ms to issue an email_guid. Design clients to poll or use
+      callbacks rather than block on synchronous responses.
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: Implement exponential backoff with jitter on 429 / 5xx, and honor Retry-After when
+      returned.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
