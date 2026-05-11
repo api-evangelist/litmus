@@ -100,6 +100,21 @@ common:
     url: json-ld/litmus-context.jsonld
     name: Litmus JSON-LD Context
     description: Linked data context mapping Litmus email test and campaign entities to standard vocabularies.
+  - type: Integrations
+    url: https://www.litmus.com/integrations
+integrations:
+  - name: Litmus
+  - name: Wistia video thumbnail
+  - name: Litmus page view feature example
+  - name: TrustRadius
+  - name: Booking.com
+  - name: Ford
+  - name: LendingTree
+  - name: publicis Worldwide
+  - name: Johnson and Johnson
+  - name: Target
+  - name: Cisco
+  - name: Sony
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
