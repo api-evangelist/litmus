@@ -83,7 +83,7 @@ common:
   - url: https://docs.litmus.com/
     type: Documentation
   - url: https://www.litmus.com/getting-started/test-your-email
-    type: Getting Started
+    type: GettingStarted
   - url: https://www.litmus.com/blog/
     type: Blog
   - url: https://litmus.com/community
@@ -96,7 +96,7 @@ common:
     url: json-schema/litmus-email-test-schema.json
     name: Litmus Email Test JSON Schema
     description: JSON Schema for Litmus email test objects covering preview, spam filter, and link-check test requests and results.
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/litmus-context.jsonld
     name: Litmus JSON-LD Context
     description: Linked data context mapping Litmus email test and campaign entities to standard vocabularies.
