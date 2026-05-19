@@ -1,0 +1,163 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Litmus Legacy Previews API — Tests
+  description: 'Litmus Legacy Previews API — Tests. 4 operations. Lead operation: Litmus List tests. Self-contained Naftiko
+    capability covering one Litmus business surface.'
+  tags:
+  - Litmus
+  - Tests
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LITMUS_API_KEY: LITMUS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: legacy-previews-tests
+    baseUri: https://previews-api.litmus.com/api/v1
+    description: Litmus Legacy Previews API — Tests business capability. Self-contained, no shared references.
+    resources:
+    - name: tests
+      path: /tests
+      operations:
+      - name: listtests
+        method: GET
+        description: Litmus List tests
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createtest
+        method: POST
+        description: Litmus Create a test
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: tests-testId
+      path: /tests/{testId}
+      operations:
+      - name: gettest
+        method: GET
+        description: Litmus Get a test
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletetest
+        method: DELETE
+        description: Litmus Delete a test
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.LITMUS_USER}}'
+      password: '{{env.LITMUS_PASS}}'
+  exposes:
+  - type: rest
+    namespace: legacy-previews-tests-rest
+    port: 8080
+    description: REST adapter for Litmus Legacy Previews API — Tests. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/tests
+      name: tests
+      description: REST surface for tests.
+      operations:
+      - method: GET
+        name: listtests
+        description: Litmus List tests
+        call: legacy-previews-tests.listtests
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtest
+        description: Litmus Create a test
+        call: legacy-previews-tests.createtest
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/tests/{testid}
+      name: tests-testid
+      description: REST surface for tests-testId.
+      operations:
+      - method: GET
+        name: gettest
+        description: Litmus Get a test
+        call: legacy-previews-tests.gettest
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetest
+        description: Litmus Delete a test
+        call: legacy-previews-tests.deletetest
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: legacy-previews-tests-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Litmus Legacy Previews API — Tests. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: litmus-list-tests
+      description: Litmus List tests
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: legacy-previews-tests.listtests
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: litmus-create-test
+      description: Litmus Create a test
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: legacy-previews-tests.createtest
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: litmus-get-test
+      description: Litmus Get a test
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: legacy-previews-tests.gettest
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: litmus-delete-test
+      description: Litmus Delete a test
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: legacy-previews-tests.deletetest
+      outputParameters:
+      - type: object
+        mapping: $.

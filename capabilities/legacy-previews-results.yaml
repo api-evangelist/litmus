@@ -1,0 +1,135 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Litmus Legacy Previews API — Results
+  description: 'Litmus Legacy Previews API — Results. 3 operations. Lead operation: Litmus Get link check results. Self-contained
+    Naftiko capability covering one Litmus business surface.'
+  tags:
+  - Litmus
+  - Results
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LITMUS_API_KEY: LITMUS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: legacy-previews-results
+    baseUri: https://previews-api.litmus.com/api/v1
+    description: Litmus Legacy Previews API — Results business capability. Self-contained, no shared references.
+    resources:
+    - name: tests-testId-links
+      path: /tests/{testId}/links
+      operations:
+      - name: getlinkcheckresults
+        method: GET
+        description: Litmus Get link check results
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: tests-testId-previews
+      path: /tests/{testId}/previews
+      operations:
+      - name: listtestpreviews
+        method: GET
+        description: Litmus List email client previews for a test
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: tests-testId-spam
+      path: /tests/{testId}/spam
+      operations:
+      - name: getspamtestresults
+        method: GET
+        description: Litmus Get spam filter test results
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.LITMUS_USER}}'
+      password: '{{env.LITMUS_PASS}}'
+  exposes:
+  - type: rest
+    namespace: legacy-previews-results-rest
+    port: 8080
+    description: REST adapter for Litmus Legacy Previews API — Results. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/tests/{testid}/links
+      name: tests-testid-links
+      description: REST surface for tests-testId-links.
+      operations:
+      - method: GET
+        name: getlinkcheckresults
+        description: Litmus Get link check results
+        call: legacy-previews-results.getlinkcheckresults
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/tests/{testid}/previews
+      name: tests-testid-previews
+      description: REST surface for tests-testId-previews.
+      operations:
+      - method: GET
+        name: listtestpreviews
+        description: Litmus List email client previews for a test
+        call: legacy-previews-results.listtestpreviews
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/tests/{testid}/spam
+      name: tests-testid-spam
+      description: REST surface for tests-testId-spam.
+      operations:
+      - method: GET
+        name: getspamtestresults
+        description: Litmus Get spam filter test results
+        call: legacy-previews-results.getspamtestresults
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: legacy-previews-results-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Litmus Legacy Previews API — Results. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: litmus-get-link-check-results
+      description: Litmus Get link check results
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: legacy-previews-results.getlinkcheckresults
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: litmus-list-email-client-previews
+      description: Litmus List email client previews for a test
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: legacy-previews-results.listtestpreviews
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: litmus-get-spam-filter-test
+      description: Litmus Get spam filter test results
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: legacy-previews-results.getspamtestresults
+      outputParameters:
+      - type: object
+        mapping: $.
