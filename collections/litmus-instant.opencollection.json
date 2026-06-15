@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Litmus Instant API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Previews",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Litmus Create an email preview",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://instant-api.litmus.com/v1/emails",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits email HTML to generate previews across one or more email clients. The request body includes the HTML source and a list of email client identifiers. Returns a preview object with a unique ID that can be used to retrieve individual client screenshots once rendering is complete."
+        },
+        {
+          "info": {
+            "name": "Litmus Get email preview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://instant-api.litmus.com/v1/emails/:emailGuid",
+            "params": [
+              {
+                "name": "emailGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier (GUID) for the email preview"
+              }
+            ]
+          },
+          "docs": "Retrieves the status and results of an email preview by its GUID. Returns the overall preview state and the rendering status for each requested email client. Poll this endpoint until all client results show a completed status."
+        },
+        {
+          "info": {
+            "name": "Litmus Get client preview screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://instant-api.litmus.com/v1/emails/:emailGuid/previews/:clientId",
+            "params": [
+              {
+                "name": "emailGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier (GUID) for the email preview"
+              },
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "Email client identifier string"
+              }
+            ]
+          },
+          "docs": "Retrieves the rendered screenshot and metadata for a specific email client within an email preview. Returns URLs for the full-size and thumbnail image captures once the client rendering status is complete."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Clients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Litmus List available email clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://instant-api.litmus.com/v1/clients"
+          },
+          "docs": "Returns the list of email client identifiers available for preview generation. Each entry includes the client ID, display name, platform category, and whether the client is currently available for rendering."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

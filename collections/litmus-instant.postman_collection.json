@@ -1,0 +1,810 @@
+{
+  "item": [
+    {
+      "id": "12a272a6-e07d-43d5-af5c-ceebca520de6",
+      "name": "Clients",
+      "description": {
+        "content": "Available email client configurations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a13d66ad-dde6-4767-9e36-52c0722f862e",
+          "name": "Litmus List available email clients",
+          "request": {
+            "name": "Litmus List available email clients",
+            "description": {
+              "content": "Returns the list of email client identifiers available for preview generation. Each entry includes the client ID, display name, platform category, and whether the client is currently available for rendering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clients"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7fe2b386-97ae-4d07-9452-0a8acc15869f",
+              "name": "List of available email clients",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"gmail_chrome\",\n    \"name\": \"Gmail (Chrome)\",\n    \"platform\": \"webmail\",\n    \"available\": true\n  },\n  {\n    \"id\": \"gmail_chrome\",\n    \"name\": \"Gmail (Chrome)\",\n    \"platform\": \"webmail\",\n    \"available\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "472609d1-eeb2-4d2d-a5ea-299ceb444d7e",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid or expired access token\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f8d27c72-2f17-4725-a86c-0e52c1ff8594",
+      "name": "Previews",
+      "description": {
+        "content": "Email preview generation and management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c118b8df-96e6-4723-b02a-f3a58cec9504",
+          "name": "Litmus Create an email preview",
+          "request": {
+            "name": "Litmus Create an email preview",
+            "description": {
+              "content": "Submits email HTML to generate previews across one or more email clients. The request body includes the HTML source and a list of email client identifiers. Returns a preview object with a unique ID that can be used to retrieve individual client screenshots once rendering is complete.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "emails"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"html\": \"<string>\",\n  \"clients\": [\n    \"<string>\"\n  ],\n  \"plain_text\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"from_address\": \"<email>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "daf0d90a-7b2e-48e2-8971-608dcc7c54d1",
+              "name": "Email preview created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"html\": \"<html><body><h1>Hello World</h1></body></html>\",\n  \"clients\": [\n    \"gmail_chrome\",\n    \"outlook_2019\",\n    \"apple_mail_14\"\n  ],\n  \"plain_text\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"from_address\": \"sender@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"status\": \"complete\",\n  \"created_at\": \"2021-07-18T05:44:46.432Z\",\n  \"completed_at\": \"1951-07-31T19:05:38.181Z\",\n  \"previews\": [\n    {\n      \"client_id\": \"gmail_chrome\",\n      \"status\": \"complete\",\n      \"full_url\": \"https://litmus-screenshots.s3.amazonaws.com/full/abc123.png\",\n      \"thumb_url\": \"https://litmus-screenshots.s3.amazonaws.com/thumb/abc123.png\",\n      \"orientation\": \"desktop\"\n    },\n    {\n      \"client_id\": \"gmail_chrome\",\n      \"status\": \"complete\",\n      \"full_url\": \"https://litmus-screenshots.s3.amazonaws.com/full/abc123.png\",\n      \"thumb_url\": \"https://litmus-screenshots.s3.amazonaws.com/thumb/abc123.png\",\n      \"orientation\": \"desktop\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5918f1cb-b811-4543-9337-3acc44870cb0",
+              "name": "Invalid request body or HTML content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"html\": \"<html><body><h1>Hello World</h1></body></html>\",\n  \"clients\": [\n    \"gmail_chrome\",\n    \"outlook_2019\",\n    \"apple_mail_14\"\n  ],\n  \"plain_text\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"from_address\": \"sender@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid or expired access token\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c61700eb-e355-4dac-87ae-9157c89f7967",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"html\": \"<html><body><h1>Hello World</h1></body></html>\",\n  \"clients\": [\n    \"gmail_chrome\",\n    \"outlook_2019\",\n    \"apple_mail_14\"\n  ],\n  \"plain_text\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"from_address\": \"sender@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid or expired access token\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6686ac0a-338d-4b75-94c8-aba4bde062b5",
+          "name": "Litmus Get email preview",
+          "request": {
+            "name": "Litmus Get email preview",
+            "description": {
+              "content": "Retrieves the status and results of an email preview by its GUID. Returns the overall preview state and the rendering status for each requested email client. Poll this endpoint until all client results show a completed status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "emails",
+                ":emailGuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "emailGuid",
+                  "description": "(Required) Unique identifier (GUID) for the email preview"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56c08145-c553-4fcd-a060-4215780c05c1",
+              "name": "Email preview details retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "emails",
+                    ":emailGuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "emailGuid",
+                      "description": "(Required) Unique identifier (GUID) for the email preview"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"status\": \"complete\",\n  \"created_at\": \"2021-07-18T05:44:46.432Z\",\n  \"completed_at\": \"1951-07-31T19:05:38.181Z\",\n  \"previews\": [\n    {\n      \"client_id\": \"gmail_chrome\",\n      \"status\": \"complete\",\n      \"full_url\": \"https://litmus-screenshots.s3.amazonaws.com/full/abc123.png\",\n      \"thumb_url\": \"https://litmus-screenshots.s3.amazonaws.com/thumb/abc123.png\",\n      \"orientation\": \"desktop\"\n    },\n    {\n      \"client_id\": \"gmail_chrome\",\n      \"status\": \"complete\",\n      \"full_url\": \"https://litmus-screenshots.s3.amazonaws.com/full/abc123.png\",\n      \"thumb_url\": \"https://litmus-screenshots.s3.amazonaws.com/thumb/abc123.png\",\n      \"orientation\": \"desktop\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a3405cf-6438-4238-8358-8ee55a6fbf07",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "emails",
+                    ":emailGuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "emailGuid",
+                      "description": "(Required) Unique identifier (GUID) for the email preview"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid or expired access token\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "593ac09c-228a-4b61-8983-f6f22bb00ad6",
+              "name": "Email preview not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "emails",
+                    ":emailGuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "emailGuid",
+                      "description": "(Required) Unique identifier (GUID) for the email preview"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid or expired access token\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dde008f5-0432-419a-a003-64962ff328fe",
+          "name": "Litmus Get client preview screenshot",
+          "request": {
+            "name": "Litmus Get client preview screenshot",
+            "description": {
+              "content": "Retrieves the rendered screenshot and metadata for a specific email client within an email preview. Returns URLs for the full-size and thumbnail image captures once the client rendering status is complete.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "emails",
+                ":emailGuid",
+                "previews",
+                ":clientId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "emailGuid",
+                  "description": "(Required) Unique identifier (GUID) for the email preview"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clientId",
+                  "description": "(Required) Email client identifier string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ad7e5d3-c738-43f6-949a-64e9e05a1781",
+              "name": "Client preview screenshot retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "emails",
+                    ":emailGuid",
+                    "previews",
+                    ":clientId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "emailGuid",
+                      "description": "(Required) Unique identifier (GUID) for the email preview"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clientId",
+                      "description": "(Required) Email client identifier string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"client_id\": \"gmail_chrome\",\n  \"status\": \"complete\",\n  \"full_url\": \"https://litmus-screenshots.s3.amazonaws.com/full/abc123.png\",\n  \"thumb_url\": \"https://litmus-screenshots.s3.amazonaws.com/thumb/abc123.png\",\n  \"orientation\": \"desktop\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd52b716-8d6c-4b74-878b-f8dd6d7550cd",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "emails",
+                    ":emailGuid",
+                    "previews",
+                    ":clientId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "emailGuid",
+                      "description": "(Required) Unique identifier (GUID) for the email preview"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clientId",
+                      "description": "(Required) Email client identifier string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid or expired access token\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8694f5bc-6a67-4a42-963a-b569d5820d8a",
+              "name": "Email preview or client not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "emails",
+                    ":emailGuid",
+                    "previews",
+                    ":clientId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "emailGuid",
+                      "description": "(Required) Unique identifier (GUID) for the email preview"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clientId",
+                      "description": "(Required) Email client identifier string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid or expired access token\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://instant-api.litmus.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f1cfecff-6f10-4d81-a4bc-309748a9945c",
+    "name": "Litmus Instant API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Litmus Instant API provides REST endpoints for generating email preview screenshots across 40+ email clients by submitting HTML directly without needing to send an actual email. It is used by email editors and ESP integrations to deliver real-time rendering previews within their own platforms. Authentication is via OAuth 2.0 access tokens.\n\nContact Support:\n Name: Litmus Support",
+      "type": "text/plain"
+    }
+  }
+}

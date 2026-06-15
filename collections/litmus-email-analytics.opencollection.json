@@ -1,0 +1,206 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Litmus Email Analytics API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Litmus List campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/campaigns",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results (1-based)"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of tracked email campaigns associated with the authenticated account. Each campaign entry includes its GUID, name, creation date, and a summary of total opens tracked so far."
+        },
+        {
+          "info": {
+            "name": "Litmus Create a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://analytics-api.litmus.com/api/v1/campaigns",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new campaign tracking entry and returns a tracking GUID and pixel URL to embed in the email HTML. The tracking pixel collects engagement data when recipients open the email."
+        },
+        {
+          "info": {
+            "name": "Litmus Get a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/campaigns/:campaignGuid",
+            "params": [
+              {
+                "name": "campaignGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier (GUID) for the email campaign"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific campaign by its GUID including basic metadata and aggregate open count. Use the analytics sub-resources to retrieve detailed engagement breakdowns."
+        },
+        {
+          "info": {
+            "name": "Litmus Delete a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://analytics-api.litmus.com/api/v1/campaigns/:campaignGuid",
+            "params": [
+              {
+                "name": "campaignGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier (GUID) for the email campaign"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a campaign and all associated tracking data from the account. This action cannot be undone and will stop collection of new engagement events for the campaign."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Litmus Get campaign engagement summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/campaigns/:campaignGuid/summary",
+            "params": [
+              {
+                "name": "campaignGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier (GUID) for the email campaign"
+              }
+            ]
+          },
+          "docs": "Returns a high-level engagement summary for the campaign including total opens, unique opens, read time distribution, deletion rate, forwarding count, and print count. Provides the core metrics for evaluating campaign performance."
+        },
+        {
+          "info": {
+            "name": "Litmus Get campaign email client breakdown",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/campaigns/:campaignGuid/clients",
+            "params": [
+              {
+                "name": "campaignGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier (GUID) for the email campaign"
+              }
+            ]
+          },
+          "docs": "Returns a breakdown of campaign opens by email client, showing the count and percentage of opens recorded from each detected email client such as Gmail, Apple Mail, Outlook, and others."
+        },
+        {
+          "info": {
+            "name": "Litmus Get campaign geographic breakdown",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/campaigns/:campaignGuid/geo",
+            "params": [
+              {
+                "name": "campaignGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier (GUID) for the email campaign"
+              }
+            ]
+          },
+          "docs": "Returns a geographic breakdown of campaign opens by country and region. Each entry includes the country name, ISO country code, open count, and percentage share of total opens."
+        },
+        {
+          "info": {
+            "name": "Litmus Get campaign device breakdown",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/campaigns/:campaignGuid/devices",
+            "params": [
+              {
+                "name": "campaignGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier (GUID) for the email campaign"
+              }
+            ]
+          },
+          "docs": "Returns a breakdown of campaign opens by device type including desktop, mobile, and tablet. Shows the count and percentage of opens for each device category."
+        },
+        {
+          "info": {
+            "name": "Litmus Get campaign read time distribution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/campaigns/:campaignGuid/read-times",
+            "params": [
+              {
+                "name": "campaignGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier (GUID) for the email campaign"
+              }
+            ]
+          },
+          "docs": "Returns the distribution of how long recipients spent reading the email. Categorizes reads into glanced (under 2 seconds), skimmed (2-8 seconds), and read (over 8 seconds) buckets with counts and percentages."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
