@@ -4,7 +4,7 @@ description: >-
   Email testing and analytics platform that allows developers and marketers to preview, test, and analyze email
   campaigns across multiple email clients and devices before sending.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Developer Tools
   - Email Testing
