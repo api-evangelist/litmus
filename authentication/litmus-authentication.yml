@@ -1,0 +1,20 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/litmus-email-analytics-openapi.yml, openapi/litmus-instant-openapi.yml, openapi/litmus-legacy-previews-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic Auth using Litmus account username and password
+  sources:
+  - openapi/litmus-email-analytics-openapi.yml
+  - openapi/litmus-legacy-previews-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: OAuth 2.0 access token obtained via the Litmus OAuth flow
+  sources:
+  - openapi/litmus-instant-openapi.yml

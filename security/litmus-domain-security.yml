@@ -1,0 +1,32 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.litmus.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  1 08:46:54 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: docs.litmus.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 25 13:56:16 2026 GMT
+  hsts: false
+- host: instant-api.litmus.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Nov 10 23:59:59 2026 GMT
+  hsts: null
+domains:
+- domain: litmus.com
+  dnssec: false
+  caa:
+  - 0 issue "certainly.com"
+  - 0 issue "digicert.com"
+  - 0 issue "globalsign.com"
+  - 0 issue "letsencrypt.org"
+  - 0 issue "amazon.com"
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
