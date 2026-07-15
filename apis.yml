@@ -72,6 +72,8 @@ apis:
       - type: OpenAPI
         url: openapi/litmus-email-analytics-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/litmus-agentic-access.yml
   - type: TrustCenter
     url: security/litmus-trust-center.yml
   - type: DomainSecurity
