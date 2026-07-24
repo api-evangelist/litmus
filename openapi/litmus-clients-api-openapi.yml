@@ -1,0 +1,88 @@
+openapi: 3.1.0
+info:
+  title: Litmus Email Analytics Clients API
+  description: The Litmus Email Analytics API provides REST endpoints for retrieving email campaign engagement metrics including read rates, deletion rates, device types, email clients, geographic data, and forwarding activity. Campaign data is accessed by GUID and returns detailed activity summary reports. Analytics data is collected via a tracking pixel embedded in sent emails and the API surfaces aggregated engagement breakdowns.
+  version: 1.0.0
+  contact:
+    name: Litmus Support
+    url: https://www.litmus.com/support/
+  termsOfService: https://www.litmus.com/terms-of-service/
+servers:
+- url: https://analytics-api.litmus.com/api/v1
+  description: Litmus Email Analytics API Production Server
+security:
+- basicAuth: []
+tags:
+- name: Clients
+  description: Available email client configurations
+paths:
+  /clients:
+    get:
+      operationId: listEmailClients
+      summary: Litmus List available email clients
+      description: Returns the list of email client identifiers available for preview generation. Each entry includes the client ID, display name, platform category, and whether the client is currently available for rendering.
+      tags:
+      - Clients
+      responses:
+        '200':
+          description: List of available email clients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmailClient'
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    EmailClient:
+      type: object
+      description: An email client available for preview rendering
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the email client
+          example: gmail_chrome
+        name:
+          type: string
+          description: Human-readable display name of the email client
+          example: Gmail (Chrome)
+        platform:
+          type: string
+          description: Platform category of the email client
+          enum:
+          - desktop
+          - mobile
+          - webmail
+          example: webmail
+        available:
+          type: boolean
+          description: Whether this client is currently available for rendering
+          example: true
+    Error:
+      type: object
+      description: An API error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: Invalid or expired access token
+        code:
+          type: string
+          description: Machine-readable error code
+          example: unauthorized
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using Litmus account username and password
+externalDocs:
+  description: Litmus Email Analytics API Documentation
+  url: https://docs.litmus.com/email-analytics

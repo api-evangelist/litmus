@@ -1,0 +1,227 @@
+openapi: 3.1.0
+info:
+  title: Litmus Email Analytics Results API
+  description: The Litmus Email Analytics API provides REST endpoints for retrieving email campaign engagement metrics including read rates, deletion rates, device types, email clients, geographic data, and forwarding activity. Campaign data is accessed by GUID and returns detailed activity summary reports. Analytics data is collected via a tracking pixel embedded in sent emails and the API surfaces aggregated engagement breakdowns.
+  version: 1.0.0
+  contact:
+    name: Litmus Support
+    url: https://www.litmus.com/support/
+  termsOfService: https://www.litmus.com/terms-of-service/
+servers:
+- url: https://analytics-api.litmus.com/api/v1
+  description: Litmus Email Analytics API Production Server
+security:
+- basicAuth: []
+tags:
+- name: Results
+  description: Test result retrieval
+paths:
+  /tests/{testId}/previews:
+    get:
+      operationId: listTestPreviews
+      summary: Litmus List email client previews for a test
+      description: Returns the list of email client rendering results for a preview test. Each result includes the client identifier, rendering status, and screenshot URLs when the render is complete.
+      tags:
+      - Results
+      parameters:
+      - $ref: '#/components/parameters/testIdParam'
+      responses:
+        '200':
+          description: List of client preview results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PreviewResult'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Test not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /tests/{testId}/spam:
+    get:
+      operationId: getSpamTestResults
+      summary: Litmus Get spam filter test results
+      description: Returns spam filter test results for the specified test, including the result from each tested spam filter service. Each result shows whether the email was flagged as spam and the spam score where available.
+      tags:
+      - Results
+      parameters:
+      - $ref: '#/components/parameters/testIdParam'
+      responses:
+        '200':
+          description: Spam filter test results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SpamResult'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Test not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /tests/{testId}/links:
+    get:
+      operationId: getLinkCheckResults
+      summary: Litmus Get link check results
+      description: Returns the link-check results for all URLs found in the tested email HTML. Each entry indicates the URL, its HTTP status code, and whether the link was reachable at the time of testing.
+      tags:
+      - Results
+      parameters:
+      - $ref: '#/components/parameters/testIdParam'
+      responses:
+        '200':
+          description: Link check results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LinkResult'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Test not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    SpamResult:
+      type: object
+      description: Spam filter check result for a single spam filter service
+      properties:
+        filter:
+          type: string
+          description: Name of the spam filter service checked
+          example: SpamAssassin
+        is_spam:
+          type: boolean
+          description: Whether the email was flagged as spam by this filter
+          example: false
+        score:
+          type: number
+          description: Spam score returned by the filter (scale varies by provider)
+          example: 0.5
+        threshold:
+          type: number
+          description: Spam score threshold above which the filter flags as spam
+          example: 5.0
+        status:
+          type: string
+          description: Status of the spam check
+          enum:
+          - pending
+          - complete
+          - failed
+          example: complete
+    Error:
+      type: object
+      description: An API error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication required
+        code:
+          type: string
+          description: Machine-readable error code
+          example: unauthorized
+    PreviewResult:
+      type: object
+      description: Email client rendering result within a test
+      properties:
+        client:
+          type: string
+          description: Email client slug identifier
+          example: GMAIL
+        client_name:
+          type: string
+          description: Human-readable name of the email client
+          example: Gmail
+        status:
+          type: string
+          description: Rendering status for this client
+          enum:
+          - pending
+          - processing
+          - complete
+          - failed
+          - unavailable
+          example: complete
+        full_image_url:
+          type: string
+          format: uri
+          description: URL to the full-size rendered screenshot
+        thumb_image_url:
+          type: string
+          format: uri
+          description: URL to the thumbnail rendered screenshot
+        orientation:
+          type: string
+          description: Display orientation of the rendering
+          enum:
+          - desktop
+          - mobile
+          example: desktop
+    LinkResult:
+      type: object
+      description: Link reachability check result for a single URL found in the email
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The URL that was checked
+          example: https://www.example.com/landing-page
+        status_code:
+          type: integer
+          description: HTTP status code returned when the URL was fetched
+          example: 200
+        reachable:
+          type: boolean
+          description: Whether the URL was successfully reachable
+          example: true
+        redirect_url:
+          type: string
+          format: uri
+          description: Final URL after any HTTP redirects, if applicable
+  parameters:
+    testIdParam:
+      name: testId
+      in: path
+      description: Numeric identifier of the email test
+      required: true
+      schema:
+        type: integer
+        example: 12345678
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using Litmus account username and password
+externalDocs:
+  description: Litmus Email Analytics API Documentation
+  url: https://docs.litmus.com/email-analytics

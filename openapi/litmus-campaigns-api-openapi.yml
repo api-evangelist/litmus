@@ -1,0 +1,247 @@
+openapi: 3.1.0
+info:
+  title: Litmus Email Analytics Campaigns API
+  description: The Litmus Email Analytics API provides REST endpoints for retrieving email campaign engagement metrics including read rates, deletion rates, device types, email clients, geographic data, and forwarding activity. Campaign data is accessed by GUID and returns detailed activity summary reports. Analytics data is collected via a tracking pixel embedded in sent emails and the API surfaces aggregated engagement breakdowns.
+  version: 1.0.0
+  contact:
+    name: Litmus Support
+    url: https://www.litmus.com/support/
+  termsOfService: https://www.litmus.com/terms-of-service/
+servers:
+- url: https://analytics-api.litmus.com/api/v1
+  description: Litmus Email Analytics API Production Server
+security:
+- basicAuth: []
+tags:
+- name: Campaigns
+  description: Email campaign tracking and management
+paths:
+  /campaigns:
+    get:
+      operationId: listCampaigns
+      summary: Litmus List campaigns
+      description: Returns a paginated list of tracked email campaigns associated with the authenticated account. Each campaign entry includes its GUID, name, creation date, and a summary of total opens tracked so far.
+      tags:
+      - Campaigns
+      parameters:
+      - $ref: '#/components/parameters/pageParam'
+      - $ref: '#/components/parameters/perPageParam'
+      responses:
+        '200':
+          description: Paginated list of campaigns
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignList'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createCampaign
+      summary: Litmus Create a campaign
+      description: Creates a new campaign tracking entry and returns a tracking GUID and pixel URL to embed in the email HTML. The tracking pixel collects engagement data when recipients open the email.
+      tags:
+      - Campaigns
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCampaignRequest'
+      responses:
+        '201':
+          description: Campaign created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /campaigns/{campaignGuid}:
+    get:
+      operationId: getCampaign
+      summary: Litmus Get a campaign
+      description: Retrieves a specific campaign by its GUID including basic metadata and aggregate open count. Use the analytics sub-resources to retrieve detailed engagement breakdowns.
+      tags:
+      - Campaigns
+      parameters:
+      - $ref: '#/components/parameters/campaignGuidParam'
+      responses:
+        '200':
+          description: Campaign retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteCampaign
+      summary: Litmus Delete a campaign
+      description: Permanently deletes a campaign and all associated tracking data from the account. This action cannot be undone and will stop collection of new engagement events for the campaign.
+      tags:
+      - Campaigns
+      parameters:
+      - $ref: '#/components/parameters/campaignGuidParam'
+      responses:
+        '204':
+          description: Campaign deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  parameters:
+    perPageParam:
+      name: per_page
+      in: query
+      description: Number of results per page
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    campaignGuidParam:
+      name: campaignGuid
+      in: path
+      description: Unique identifier (GUID) for the email campaign
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 550e8400-e29b-41d4-a716-446655440000
+    pageParam:
+      name: page
+      in: query
+      description: Page number for paginated results (1-based)
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+  schemas:
+    Campaign:
+      type: object
+      description: An email campaign tracking entry
+      properties:
+        guid:
+          type: string
+          format: uuid
+          description: Unique identifier for the campaign
+          example: 550e8400-e29b-41d4-a716-446655440000
+        name:
+          type: string
+          description: Human-readable name of the campaign
+          example: March Newsletter 2026
+        tracking_pixel_url:
+          type: string
+          format: uri
+          description: URL of the tracking pixel to embed in the email HTML
+          example: https://analytics.litmus.com/t/550e8400-e29b-41d4-a716-446655440000.gif
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the campaign was created
+        total_opens:
+          type: integer
+          description: Total number of opens tracked for this campaign
+          example: 4832
+        tags:
+          type: array
+          description: Tags assigned to the campaign
+          items:
+            type: string
+    Error:
+      type: object
+      description: An API error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication required
+        code:
+          type: string
+          description: Machine-readable error code
+          example: unauthorized
+    CampaignList:
+      type: object
+      description: Paginated list of campaigns
+      properties:
+        campaigns:
+          type: array
+          description: Array of campaign summaries
+          items:
+            $ref: '#/components/schemas/Campaign'
+        total:
+          type: integer
+          description: Total number of campaigns in the account
+          example: 54
+        page:
+          type: integer
+          description: Current page number
+          example: 1
+        per_page:
+          type: integer
+          description: Number of campaigns per page
+          example: 25
+    CreateCampaignRequest:
+      type: object
+      description: Request body for creating a new campaign tracking entry
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Human-readable name for the campaign
+          example: March Newsletter 2026
+          maxLength: 255
+        tags:
+          type: array
+          description: Optional tags for organizing campaigns
+          items:
+            type: string
+          example:
+          - newsletter
+          - Q1-2026
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using Litmus account username and password
+externalDocs:
+  description: Litmus Email Analytics API Documentation
+  url: https://docs.litmus.com/email-analytics
