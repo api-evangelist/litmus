@@ -4,7 +4,20 @@ description: >-
   Email testing and analytics platform that allows developers and marketers to preview, test, and analyze email
   campaigns across multiple email clients and devices before sending.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/litmus.png
 tags:
   - Developer Tools
   - Email Testing
@@ -15,62 +28,114 @@ created: '2025-01-01'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: litmus:litmus-instant-api
-    name: Litmus Instant API
-    description: >-
-      The Litmus Instant API provides REST endpoints for generating email preview screenshots across 40+ email clients
-      by submitting HTML directly without needing to send an actual email. It is used by email editors and ESP
-      integrations to deliver real-time rendering previews within their own platforms.
-    humanURL: https://docs.litmus.com/instant
-    baseURL: https://instant-api.litmus.com/v1
-    tags:
-      - Email Clients
-      - Email Testing
-      - Previews
-      - REST API
-    properties:
-      - type: Documentation
-        url: https://docs.litmus.com/instant
-      - type: Authentication
-        url: https://docs.litmus.com/oauth-integration-guide
-      - type: OpenAPI
-        url: openapi/litmus-instant-openapi.yml
-  - aid: litmus:litmus-legacy-previews-api
-    name: Litmus Legacy Previews API
-    description: >-
-      The Litmus Legacy Previews API provides REST endpoints for running email preview tests, spam filter tests,
-      link-check tests, and code analysis against submitted email HTML. Tests are initiated by POSTing to the API and
-      results are polled until rendering is complete.
-    humanURL: https://docs.litmus.com/legacy-previews
-    baseURL: https://previews-api.litmus.com/api/v1
-    tags:
-      - Email Testing
-      - Previews
-      - REST API
-      - Spam Testing
-    properties:
-      - type: Documentation
-        url: https://docs.litmus.com/legacy-previews
-      - type: OpenAPI
-        url: openapi/litmus-legacy-previews-openapi.yml
-  - aid: litmus:litmus-email-analytics-api
-    name: Litmus Email Analytics API
-    description: >-
-      The Litmus Email Analytics API provides REST endpoints for retrieving email campaign engagement metrics including
-      read rates, deletion rates, device types, email clients, geographic data, and forwarding activity. Campaign data
-      is accessed by GUID and returns detailed activity summary reports.
-    humanURL: https://docs.litmus.com/email-analytics
-    baseURL: https://analytics-api.litmus.com/api/v1
-    tags:
-      - Campaign Metrics
-      - Email Analytics
-      - Reporting
-      - REST API
-    properties:
-      - type: Documentation
-        url: https://docs.litmus.com/email-analytics
-      - type: OpenAPI
-        url: openapi/litmus-email-analytics-openapi.yml
+- aid: litmus:litmus-analytics-api
+  name: Litmus Analytics API
+  description: Campaign engagement metrics and breakdowns
+  humanURL: https://docs.litmus.com/instant
+  baseURL: https://instant-api.litmus.com/v1
+  tags:
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/litmus-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.litmus.com/instant
+  - type: Authentication
+    url: https://docs.litmus.com/oauth-integration-guide
+  - type: Documentation
+    url: https://docs.litmus.com/legacy-previews
+  - type: Documentation
+    url: https://docs.litmus.com/email-analytics
+- aid: litmus:litmus-campaigns-api
+  name: Litmus Campaigns API
+  description: Email campaign tracking and management
+  humanURL: https://docs.litmus.com/instant
+  baseURL: https://instant-api.litmus.com/v1
+  tags:
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/litmus-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://docs.litmus.com/instant
+  - type: Authentication
+    url: https://docs.litmus.com/oauth-integration-guide
+  - type: Documentation
+    url: https://docs.litmus.com/legacy-previews
+  - type: Documentation
+    url: https://docs.litmus.com/email-analytics
+- aid: litmus:litmus-clients-api
+  name: Litmus Clients API
+  description: Available email client configurations
+  humanURL: https://docs.litmus.com/instant
+  baseURL: https://instant-api.litmus.com/v1
+  tags:
+  - Clients
+  properties:
+  - type: OpenAPI
+    url: openapi/litmus-clients-api-openapi.yml
+  - type: Documentation
+    url: https://docs.litmus.com/instant
+  - type: Authentication
+    url: https://docs.litmus.com/oauth-integration-guide
+  - type: Documentation
+    url: https://docs.litmus.com/legacy-previews
+  - type: Documentation
+    url: https://docs.litmus.com/email-analytics
+- aid: litmus:litmus-previews-api
+  name: Litmus Previews API
+  description: Email preview generation and management
+  humanURL: https://docs.litmus.com/instant
+  baseURL: https://instant-api.litmus.com/v1
+  tags:
+  - Previews
+  properties:
+  - type: OpenAPI
+    url: openapi/litmus-previews-api-openapi.yml
+  - type: Documentation
+    url: https://docs.litmus.com/instant
+  - type: Authentication
+    url: https://docs.litmus.com/oauth-integration-guide
+  - type: Documentation
+    url: https://docs.litmus.com/legacy-previews
+  - type: Documentation
+    url: https://docs.litmus.com/email-analytics
+- aid: litmus:litmus-results-api
+  name: Litmus Results API
+  description: Test result retrieval
+  humanURL: https://docs.litmus.com/instant
+  baseURL: https://instant-api.litmus.com/v1
+  tags:
+  - Results
+  properties:
+  - type: OpenAPI
+    url: openapi/litmus-results-api-openapi.yml
+  - type: Documentation
+    url: https://docs.litmus.com/instant
+  - type: Authentication
+    url: https://docs.litmus.com/oauth-integration-guide
+  - type: Documentation
+    url: https://docs.litmus.com/legacy-previews
+  - type: Documentation
+    url: https://docs.litmus.com/email-analytics
+- aid: litmus:litmus-tests-api
+  name: Litmus Tests API
+  description: Email test creation and management
+  humanURL: https://docs.litmus.com/instant
+  baseURL: https://instant-api.litmus.com/v1
+  tags:
+  - Tests
+  properties:
+  - type: OpenAPI
+    url: openapi/litmus-tests-api-openapi.yml
+  - type: Documentation
+    url: https://docs.litmus.com/instant
+  - type: Authentication
+    url: https://docs.litmus.com/oauth-integration-guide
+  - type: Documentation
+    url: https://docs.litmus.com/legacy-previews
+  - type: Documentation
+    url: https://docs.litmus.com/email-analytics
 common:
   - type: AgenticAccess
     url: agentic-access/litmus-agentic-access.yml
