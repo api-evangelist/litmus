@@ -1,0 +1,24 @@
+{
+  "provider": "litmus",
+  "sources": [
+    "litmus-analytics-api-openapi.yml",
+    "litmus-campaigns-api-openapi.yml",
+    "litmus-clients-api-openapi.yml",
+    "litmus-previews-api-openapi.yml",
+    "litmus-results-api-openapi.yml",
+    "litmus-tests-api-openapi.yml"
+  ],
+  "outputs": [
+    "litmus-analytics-api-openapi.yml",
+    "litmus-campaigns-api-openapi.yml",
+    "litmus-clients-api-openapi.yml",
+    "litmus-previews-api-openapi.yml",
+    "litmus-results-api-openapi.yml",
+    "litmus-tests-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
