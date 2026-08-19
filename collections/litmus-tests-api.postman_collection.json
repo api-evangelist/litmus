@@ -1,0 +1,794 @@
+{
+  "item": [
+    {
+      "id": "29030894-e8f2-490a-9aec-fceac0498e9e",
+      "name": "Tests",
+      "description": {
+        "content": "Email test creation and management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cb9a2dc3-cfac-47cc-a271-cd6d87065309",
+          "name": "Litmus List tests",
+          "request": {
+            "name": "Litmus List tests",
+            "description": {
+              "content": "Returns a paginated list of all email tests run under the authenticated account. Each test entry includes the test type, creation timestamp, current status, and a link to the full test results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Number of results per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b1b2f3ea-e925-4bdf-9c05-b4d5ce0414c8",
+              "name": "Paginated list of tests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tests\": [\n    {\n      \"id\": 12345678,\n      \"status\": \"complete\",\n      \"created_at\": \"1956-03-01T08:30:19.932Z\",\n      \"completed_at\": \"1968-08-08T23:23:10.785Z\",\n      \"subject\": \"Welcome to Our Newsletter\",\n      \"from_address\": \"sender@example.com\",\n      \"previews_requested\": true,\n      \"spam_requested\": false,\n      \"links_requested\": true\n    },\n    {\n      \"id\": 12345678,\n      \"status\": \"complete\",\n      \"created_at\": \"2023-11-18T23:44:31.540Z\",\n      \"completed_at\": \"1991-04-08T09:00:25.856Z\",\n      \"subject\": \"Welcome to Our Newsletter\",\n      \"from_address\": \"sender@example.com\",\n      \"previews_requested\": true,\n      \"spam_requested\": false,\n      \"links_requested\": true\n    }\n  ],\n  \"total\": 128,\n  \"page\": 1,\n  \"per_page\": 25\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "caaf4a25-b566-4cd2-a20d-255d11d83137",
+              "name": "Invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Authentication required\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91b1b10c-2ada-4cfb-8f9a-8262037837d0",
+          "name": "Litmus Create a test",
+          "request": {
+            "name": "Litmus Create a test",
+            "description": {
+              "content": "Creates a new email test by submitting email HTML, subject, and optional sender details. The test type (preview, spam, links) determines which checks are run. Returns the newly created test object with an ID for polling results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"html\": \"<string>\",\n  \"plain_text\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"from_address\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"clients\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"run_spam_filter_tests\": false,\n  \"run_link_check_tests\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "08177556-33d4-4de2-ac08-02f79981a7a9",
+              "name": "Test created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"html\": \"<string>\",\n  \"plain_text\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"from_address\": \"sender@example.com\",\n  \"from_name\": \"My Company\",\n  \"clients\": [\n    \"GMAIL\",\n    \"OL2019\"\n  ],\n  \"run_spam_filter_tests\": false,\n  \"run_link_check_tests\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 12345678,\n  \"status\": \"complete\",\n  \"created_at\": \"1972-10-16T05:15:45.050Z\",\n  \"completed_at\": \"1989-07-01T03:10:55.112Z\",\n  \"subject\": \"Welcome to Our Newsletter\",\n  \"from_address\": \"sender@example.com\",\n  \"previews_requested\": false,\n  \"spam_requested\": true,\n  \"links_requested\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d04dce36-71ba-4eaf-94b2-d8b3780f4f55",
+              "name": "Invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"html\": \"<string>\",\n  \"plain_text\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"from_address\": \"sender@example.com\",\n  \"from_name\": \"My Company\",\n  \"clients\": [\n    \"GMAIL\",\n    \"OL2019\"\n  ],\n  \"run_spam_filter_tests\": false,\n  \"run_link_check_tests\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Authentication required\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ec9c41d-69db-4d76-a1f7-b6f9a7c60ed6",
+              "name": "Invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"html\": \"<string>\",\n  \"plain_text\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"from_address\": \"sender@example.com\",\n  \"from_name\": \"My Company\",\n  \"clients\": [\n    \"GMAIL\",\n    \"OL2019\"\n  ],\n  \"run_spam_filter_tests\": false,\n  \"run_link_check_tests\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Authentication required\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "759799c5-21ad-4911-9ad0-c2bda7126e89",
+          "name": "Litmus Get a test",
+          "request": {
+            "name": "Litmus Get a test",
+            "description": {
+              "content": "Retrieves a specific email test by its numeric ID. Returns the test status and all available results. Poll this endpoint until the test status transitions to complete for all requested test types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tests",
+                ":testId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "testId",
+                  "description": "(Required) Numeric identifier of the email test"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c5f1847d-a3f2-4a69-99fc-fc4dd42bfe55",
+              "name": "Test retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "testId",
+                      "description": "(Required) Numeric identifier of the email test"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 12345678,\n  \"status\": \"complete\",\n  \"created_at\": \"1972-10-16T05:15:45.050Z\",\n  \"completed_at\": \"1989-07-01T03:10:55.112Z\",\n  \"subject\": \"Welcome to Our Newsletter\",\n  \"from_address\": \"sender@example.com\",\n  \"previews_requested\": false,\n  \"spam_requested\": true,\n  \"links_requested\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fafa5569-e2d4-4d66-879a-e746b14f2c13",
+              "name": "Invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "testId",
+                      "description": "(Required) Numeric identifier of the email test"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Authentication required\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c935b98-e90b-448b-85bf-650dc0dea88c",
+              "name": "Test not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "testId",
+                      "description": "(Required) Numeric identifier of the email test"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Authentication required\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "610bae10-a5fc-4447-a7fc-6b9bd1f389cf",
+          "name": "Litmus Delete a test",
+          "request": {
+            "name": "Litmus Delete a test",
+            "description": {
+              "content": "Permanently deletes an email test and all associated results from the Litmus account. This action cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tests",
+                ":testId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "testId",
+                  "description": "(Required) Numeric identifier of the email test"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c0a87f1a-6d4e-4e75-a9d4-3da74f97e0bc",
+              "name": "Test deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "testId",
+                      "description": "(Required) Numeric identifier of the email test"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "53dc68d2-d10d-4772-8a36-c86ffa9bfe47",
+              "name": "Invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "testId",
+                      "description": "(Required) Numeric identifier of the email test"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Authentication required\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c943c808-424b-4135-98dc-6248e4c4c8d7",
+              "name": "Test not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "testId",
+                      "description": "(Required) Numeric identifier of the email test"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Authentication required\",\n  \"code\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://analytics-api.litmus.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "43a086ca-767c-4022-8d77-fd39f48d06a0",
+    "name": "Litmus Email Analytics Tests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Litmus Email Analytics API provides REST endpoints for retrieving email campaign engagement metrics including read rates, deletion rates, device types, email clients, geographic data, and forwarding activity. Campaign data is accessed by GUID and returns detailed activity summary reports. Analytics data is collected via a tracking pixel embedded in sent emails and the API surfaces aggregated engagement breakdowns.\n\nContact Support:\n Name: Litmus Support",
+      "type": "text/plain"
+    }
+  }
+}

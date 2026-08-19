@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Litmus Email Analytics Campaigns API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Litmus List campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/campaigns",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results (1-based)"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of tracked email campaigns associated with the authenticated account. Each campaign entry includes its GUID, name, creation date, and a summary of total opens tracked so far."
+        },
+        {
+          "info": {
+            "name": "Litmus Create a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://analytics-api.litmus.com/api/v1/campaigns",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new campaign tracking entry and returns a tracking GUID and pixel URL to embed in the email HTML. The tracking pixel collects engagement data when recipients open the email."
+        },
+        {
+          "info": {
+            "name": "Litmus Get a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/campaigns/:campaignGuid",
+            "params": [
+              {
+                "name": "campaignGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier (GUID) for the email campaign"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific campaign by its GUID including basic metadata and aggregate open count. Use the analytics sub-resources to retrieve detailed engagement breakdowns."
+        },
+        {
+          "info": {
+            "name": "Litmus Delete a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://analytics-api.litmus.com/api/v1/campaigns/:campaignGuid",
+            "params": [
+              {
+                "name": "campaignGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier (GUID) for the email campaign"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a campaign and all associated tracking data from the account. This action cannot be undone and will stop collection of new engagement events for the campaign."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

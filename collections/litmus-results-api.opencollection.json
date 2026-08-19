@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Litmus Email Analytics Results API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Litmus List email client previews for a test",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/tests/:testId/previews",
+            "params": [
+              {
+                "name": "testId",
+                "value": "",
+                "type": "path",
+                "description": "Numeric identifier of the email test"
+              }
+            ]
+          },
+          "docs": "Returns the list of email client rendering results for a preview test. Each result includes the client identifier, rendering status, and screenshot URLs when the render is complete."
+        },
+        {
+          "info": {
+            "name": "Litmus Get spam filter test results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/tests/:testId/spam",
+            "params": [
+              {
+                "name": "testId",
+                "value": "",
+                "type": "path",
+                "description": "Numeric identifier of the email test"
+              }
+            ]
+          },
+          "docs": "Returns spam filter test results for the specified test, including the result from each tested spam filter service. Each result shows whether the email was flagged as spam and the spam score where available."
+        },
+        {
+          "info": {
+            "name": "Litmus Get link check results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/tests/:testId/links",
+            "params": [
+              {
+                "name": "testId",
+                "value": "",
+                "type": "path",
+                "description": "Numeric identifier of the email test"
+              }
+            ]
+          },
+          "docs": "Returns the link-check results for all URLs found in the tested email HTML. Each entry indicates the URL, its HTTP status code, and whether the link was reachable at the time of testing."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

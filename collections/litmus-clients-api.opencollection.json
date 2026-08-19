@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Litmus Email Analytics Clients API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Clients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Litmus List available email clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/clients"
+          },
+          "docs": "Returns the list of email client identifiers available for preview generation. Each entry includes the client ID, display name, platform category, and whether the client is currently available for rendering."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

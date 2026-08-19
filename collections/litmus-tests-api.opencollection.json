@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Litmus Email Analytics Tests API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Litmus List tests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/tests",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results (1-based)"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all email tests run under the authenticated account. Each test entry includes the test type, creation timestamp, current status, and a link to the full test results."
+        },
+        {
+          "info": {
+            "name": "Litmus Create a test",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://analytics-api.litmus.com/api/v1/tests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new email test by submitting email HTML, subject, and optional sender details. The test type (preview, spam, links) determines which checks are run. Returns the newly created test object with an ID for polling results."
+        },
+        {
+          "info": {
+            "name": "Litmus Get a test",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://analytics-api.litmus.com/api/v1/tests/:testId",
+            "params": [
+              {
+                "name": "testId",
+                "value": "",
+                "type": "path",
+                "description": "Numeric identifier of the email test"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific email test by its numeric ID. Returns the test status and all available results. Poll this endpoint until the test status transitions to complete for all requested test types."
+        },
+        {
+          "info": {
+            "name": "Litmus Delete a test",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://analytics-api.litmus.com/api/v1/tests/:testId",
+            "params": [
+              {
+                "name": "testId",
+                "value": "",
+                "type": "path",
+                "description": "Numeric identifier of the email test"
+              }
+            ]
+          },
+          "docs": "Permanently deletes an email test and all associated results from the Litmus account. This action cannot be undone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
