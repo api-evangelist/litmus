@@ -1,17 +1,17 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Litmus Email Analytics Clients API
-  description: The Litmus Email Analytics API provides REST endpoints for retrieving email campaign engagement metrics including read rates, deletion rates, device types, email clients, geographic data, and forwarding activity. Campaign data is accessed by GUID and returns detailed activity summary reports. Analytics data is collected via a tracking pixel embedded in sent emails and the API surfaces aggregated engagement breakdowns.
+  title: Litmus Clients API
   version: 1.0.0
   contact:
     name: Litmus Support
     url: https://www.litmus.com/support/
   termsOfService: https://www.litmus.com/terms-of-service/
+  description: 'Operations tagged Clients across 2 of this provider''s published API definitions: litmus-instant-openapi.yml, litmus-legacy-previews-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://analytics-api.litmus.com/api/v1
-  description: Litmus Email Analytics API Production Server
-security:
-- basicAuth: []
+- url: https://instant-api.litmus.com/v1
+  description: Litmus Instant API Production Server
+- url: https://previews-api.litmus.com/api/v1
+  description: Litmus Legacy Previews API Production Server
 tags:
 - name: Clients
   description: Available email client configurations
@@ -38,6 +38,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://instant-api.litmus.com/v1
+      description: Litmus Instant API Production Server
 components:
   schemas:
     EmailClient:
@@ -78,11 +83,53 @@ components:
           type: string
           description: Machine-readable error code
           example: unauthorized
+    Error_2:
+      type: object
+      description: An API error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication required
+        code:
+          type: string
+          description: Machine-readable error code
+          example: unauthorized
+    LegacyClient:
+      type: object
+      description: An email client available for legacy preview testing
+      properties:
+        slug:
+          type: string
+          description: Identifier used when specifying this client in test requests
+          example: GMAIL
+        name:
+          type: string
+          description: Human-readable display name of the email client
+          example: Gmail
+        platform:
+          type: string
+          description: Platform category of the email client
+          enum:
+          - desktop
+          - mobile
+          - webmail
+          example: webmail
+        available:
+          type: boolean
+          description: Whether this client is currently available for rendering
+          example: true
   securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 access token obtained via the Litmus OAuth flow
     basicAuth:
       type: http
       scheme: basic
       description: HTTP Basic Auth using Litmus account username and password
-externalDocs:
-  description: Litmus Email Analytics API Documentation
-  url: https://docs.litmus.com/email-analytics
+x-refined-from:
+- litmus-instant-openapi.yml
+- litmus-legacy-previews-openapi.yml

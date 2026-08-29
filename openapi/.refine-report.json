@@ -1,12 +1,9 @@
 {
   "provider": "litmus",
   "sources": [
-    "litmus-analytics-api-openapi.yml",
-    "litmus-campaigns-api-openapi.yml",
-    "litmus-clients-api-openapi.yml",
-    "litmus-previews-api-openapi.yml",
-    "litmus-results-api-openapi.yml",
-    "litmus-tests-api-openapi.yml"
+    "_original/litmus-email-analytics-openapi.yml",
+    "_original/litmus-instant-openapi.yml",
+    "_original/litmus-legacy-previews-openapi.yml"
   ],
   "outputs": [
     "litmus-analytics-api-openapi.yml",
@@ -19,6 +16,19 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "litmus-email-analytics-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "litmus-instant-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "litmus-legacy-previews-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Clients' spans 2 source specs (litmus-instant-openapi.yml, litmus-legacy-previews-openapi.yml): per-path servers applied"
+  ],
+  "skipped": [
+    "litmus-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "litmus-campaigns-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "litmus-clients-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "litmus-previews-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "litmus-results-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "litmus-tests-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

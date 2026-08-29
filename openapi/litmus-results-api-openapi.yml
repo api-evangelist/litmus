@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Litmus Email Analytics Results API
-  description: The Litmus Email Analytics API provides REST endpoints for retrieving email campaign engagement metrics including read rates, deletion rates, device types, email clients, geographic data, and forwarding activity. Campaign data is accessed by GUID and returns detailed activity summary reports. Analytics data is collected via a tracking pixel embedded in sent emails and the API surfaces aggregated engagement breakdowns.
+  title: Litmus Legacy Previews Results API
+  description: The Litmus Legacy Previews API provides REST endpoints for running email preview tests, spam filter tests, link-check tests, and code analysis against submitted email HTML. Tests are initiated by POSTing email content to the API and results are polled until rendering is complete. Authentication uses HTTP Basic Auth with Litmus account credentials.
   version: 1.0.0
   contact:
     name: Litmus Support
     url: https://www.litmus.com/support/
   termsOfService: https://www.litmus.com/terms-of-service/
 servers:
-- url: https://analytics-api.litmus.com/api/v1
-  description: Litmus Email Analytics API Production Server
+- url: https://previews-api.litmus.com/api/v1
+  description: Litmus Legacy Previews API Production Server
 security:
 - basicAuth: []
 tags:
@@ -108,34 +108,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    SpamResult:
-      type: object
-      description: Spam filter check result for a single spam filter service
-      properties:
-        filter:
-          type: string
-          description: Name of the spam filter service checked
-          example: SpamAssassin
-        is_spam:
-          type: boolean
-          description: Whether the email was flagged as spam by this filter
-          example: false
-        score:
-          type: number
-          description: Spam score returned by the filter (scale varies by provider)
-          example: 0.5
-        threshold:
-          type: number
-          description: Spam score threshold above which the filter flags as spam
-          example: 5.0
-        status:
-          type: string
-          description: Status of the spam check
-          enum:
-          - pending
-          - complete
-          - failed
-          example: complete
     Error:
       type: object
       description: An API error response
@@ -208,6 +180,34 @@ components:
           type: string
           format: uri
           description: Final URL after any HTTP redirects, if applicable
+    SpamResult:
+      type: object
+      description: Spam filter check result for a single spam filter service
+      properties:
+        filter:
+          type: string
+          description: Name of the spam filter service checked
+          example: SpamAssassin
+        is_spam:
+          type: boolean
+          description: Whether the email was flagged as spam by this filter
+          example: false
+        score:
+          type: number
+          description: Spam score returned by the filter (scale varies by provider)
+          example: 0.5
+        threshold:
+          type: number
+          description: Spam score threshold above which the filter flags as spam
+          example: 5.0
+        status:
+          type: string
+          description: Status of the spam check
+          enum:
+          - pending
+          - complete
+          - failed
+          example: complete
   parameters:
     testIdParam:
       name: testId
@@ -223,5 +223,5 @@ components:
       scheme: basic
       description: HTTP Basic Auth using Litmus account username and password
 externalDocs:
-  description: Litmus Email Analytics API Documentation
-  url: https://docs.litmus.com/email-analytics
+  description: Litmus Legacy Previews API Documentation
+  url: https://docs.litmus.com/legacy-previews

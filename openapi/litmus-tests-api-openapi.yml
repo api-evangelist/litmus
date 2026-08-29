@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Litmus Email Analytics Tests API
-  description: The Litmus Email Analytics API provides REST endpoints for retrieving email campaign engagement metrics including read rates, deletion rates, device types, email clients, geographic data, and forwarding activity. Campaign data is accessed by GUID and returns detailed activity summary reports. Analytics data is collected via a tracking pixel embedded in sent emails and the API surfaces aggregated engagement breakdowns.
+  title: Litmus Legacy Previews Tests API
+  description: The Litmus Legacy Previews API provides REST endpoints for running email preview tests, spam filter tests, link-check tests, and code analysis against submitted email HTML. Tests are initiated by POSTing email content to the API and results are polled until rendering is complete. Authentication uses HTTP Basic Auth with Litmus account credentials.
   version: 1.0.0
   contact:
     name: Litmus Support
     url: https://www.litmus.com/support/
   termsOfService: https://www.litmus.com/terms-of-service/
 servers:
-- url: https://analytics-api.litmus.com/api/v1
-  description: Litmus Email Analytics API Production Server
+- url: https://previews-api.litmus.com/api/v1
+  description: Litmus Legacy Previews API Production Server
 security:
 - basicAuth: []
 tags:
@@ -276,5 +276,5 @@ components:
       scheme: basic
       description: HTTP Basic Auth using Litmus account username and password
 externalDocs:
-  description: Litmus Email Analytics API Documentation
-  url: https://docs.litmus.com/email-analytics
+  description: Litmus Legacy Previews API Documentation
+  url: https://docs.litmus.com/legacy-previews

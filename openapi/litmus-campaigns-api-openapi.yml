@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Litmus Email Analytics Campaigns API
   description: The Litmus Email Analytics API provides REST endpoints for retrieving email campaign engagement metrics including read rates, deletion rates, device types, email clients, geographic data, and forwarding activity. Campaign data is accessed by GUID and returns detailed activity summary reports. Analytics data is collected via a tracking pixel embedded in sent emails and the API surfaces aggregated engagement breakdowns.
@@ -133,15 +133,6 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    campaignGuidParam:
-      name: campaignGuid
-      in: path
-      description: Unique identifier (GUID) for the email campaign
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 550e8400-e29b-41d4-a716-446655440000
     pageParam:
       name: page
       in: query
@@ -151,38 +142,16 @@ components:
         type: integer
         minimum: 1
         default: 1
+    campaignGuidParam:
+      name: campaignGuid
+      in: path
+      description: Unique identifier (GUID) for the email campaign
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 550e8400-e29b-41d4-a716-446655440000
   schemas:
-    Campaign:
-      type: object
-      description: An email campaign tracking entry
-      properties:
-        guid:
-          type: string
-          format: uuid
-          description: Unique identifier for the campaign
-          example: 550e8400-e29b-41d4-a716-446655440000
-        name:
-          type: string
-          description: Human-readable name of the campaign
-          example: March Newsletter 2026
-        tracking_pixel_url:
-          type: string
-          format: uri
-          description: URL of the tracking pixel to embed in the email HTML
-          example: https://analytics.litmus.com/t/550e8400-e29b-41d4-a716-446655440000.gif
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the campaign was created
-        total_opens:
-          type: integer
-          description: Total number of opens tracked for this campaign
-          example: 4832
-        tags:
-          type: array
-          description: Tags assigned to the campaign
-          items:
-            type: string
     Error:
       type: object
       description: An API error response
@@ -218,6 +187,37 @@ components:
           type: integer
           description: Number of campaigns per page
           example: 25
+    Campaign:
+      type: object
+      description: An email campaign tracking entry
+      properties:
+        guid:
+          type: string
+          format: uuid
+          description: Unique identifier for the campaign
+          example: 550e8400-e29b-41d4-a716-446655440000
+        name:
+          type: string
+          description: Human-readable name of the campaign
+          example: March Newsletter 2026
+        tracking_pixel_url:
+          type: string
+          format: uri
+          description: URL of the tracking pixel to embed in the email HTML
+          example: https://analytics.litmus.com/t/550e8400-e29b-41d4-a716-446655440000.gif
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the campaign was created
+        total_opens:
+          type: integer
+          description: Total number of opens tracked for this campaign
+          example: 4832
+        tags:
+          type: array
+          description: Tags assigned to the campaign
+          items:
+            type: string
     CreateCampaignRequest:
       type: object
       description: Request body for creating a new campaign tracking entry
