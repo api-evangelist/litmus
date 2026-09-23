@@ -45,6 +45,20 @@ paths:
       description: Litmus Instant API Production Server
 components:
   schemas:
+    Error:
+      type: object
+      description: An API error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: Invalid or expired access token
+        code:
+          type: string
+          description: Machine-readable error code
+          example: unauthorized
     EmailClient:
       type: object
       description: An email client available for preview rendering
@@ -69,20 +83,6 @@ components:
           type: boolean
           description: Whether this client is currently available for rendering
           example: true
-    Error:
-      type: object
-      description: An API error response
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: Invalid or expired access token
-        code:
-          type: string
-          description: Machine-readable error code
-          example: unauthorized
     Error_2:
       type: object
       description: An API error response

@@ -21,7 +21,8 @@
     "litmus-email-analytics-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "litmus-instant-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "litmus-legacy-previews-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "tag 'Clients' spans 2 source specs (litmus-instant-openapi.yml, litmus-legacy-previews-openapi.yml): per-path servers applied"
+    "tag 'Clients' spans 2 source specs (litmus-instant-openapi.yml, litmus-legacy-previews-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "litmus-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",

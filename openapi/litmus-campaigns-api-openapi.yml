@@ -122,36 +122,38 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  parameters:
-    perPageParam:
-      name: per_page
-      in: query
-      description: Number of results per page
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    pageParam:
-      name: page
-      in: query
-      description: Page number for paginated results (1-based)
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    campaignGuidParam:
-      name: campaignGuid
-      in: path
-      description: Unique identifier (GUID) for the email campaign
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 550e8400-e29b-41d4-a716-446655440000
   schemas:
+    Campaign:
+      type: object
+      description: An email campaign tracking entry
+      properties:
+        guid:
+          type: string
+          format: uuid
+          description: Unique identifier for the campaign
+          example: 550e8400-e29b-41d4-a716-446655440000
+        name:
+          type: string
+          description: Human-readable name of the campaign
+          example: March Newsletter 2026
+        tracking_pixel_url:
+          type: string
+          format: uri
+          description: URL of the tracking pixel to embed in the email HTML
+          example: https://analytics.litmus.com/t/550e8400-e29b-41d4-a716-446655440000.gif
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the campaign was created
+        total_opens:
+          type: integer
+          description: Total number of opens tracked for this campaign
+          example: 4832
+        tags:
+          type: array
+          description: Tags assigned to the campaign
+          items:
+            type: string
     Error:
       type: object
       description: An API error response
@@ -187,37 +189,6 @@ components:
           type: integer
           description: Number of campaigns per page
           example: 25
-    Campaign:
-      type: object
-      description: An email campaign tracking entry
-      properties:
-        guid:
-          type: string
-          format: uuid
-          description: Unique identifier for the campaign
-          example: 550e8400-e29b-41d4-a716-446655440000
-        name:
-          type: string
-          description: Human-readable name of the campaign
-          example: March Newsletter 2026
-        tracking_pixel_url:
-          type: string
-          format: uri
-          description: URL of the tracking pixel to embed in the email HTML
-          example: https://analytics.litmus.com/t/550e8400-e29b-41d4-a716-446655440000.gif
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the campaign was created
-        total_opens:
-          type: integer
-          description: Total number of opens tracked for this campaign
-          example: 4832
-        tags:
-          type: array
-          description: Tags assigned to the campaign
-          items:
-            type: string
     CreateCampaignRequest:
       type: object
       description: Request body for creating a new campaign tracking entry
@@ -237,6 +208,35 @@ components:
           example:
           - newsletter
           - Q1-2026
+  parameters:
+    perPageParam:
+      name: per_page
+      in: query
+      description: Number of results per page
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    campaignGuidParam:
+      name: campaignGuid
+      in: path
+      description: Unique identifier (GUID) for the email campaign
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 550e8400-e29b-41d4-a716-446655440000
+    pageParam:
+      name: page
+      in: query
+      description: Page number for paginated results (1-based)
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
   securitySchemes:
     basicAuth:
       type: http

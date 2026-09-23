@@ -183,54 +183,29 @@ components:
           minimum: 0
           maximum: 100
           example: 38.1
-    Error:
+    ReadTimeBucket:
       type: object
-      description: An API error response
-      required:
-      - message
+      description: A read time engagement bucket with count and percentage
       properties:
-        message:
+        label:
           type: string
-          description: Human-readable error message
-          example: Authentication required
-        code:
+          description: Human-readable label for the bucket
+          example: Read
+        seconds_range:
           type: string
-          description: Machine-readable error code
-          example: unauthorized
-    GeoBreakdownEntry:
-      type: object
-      description: Campaign opens attributed to a single country
-      properties:
-        country:
-          type: string
-          description: Country name
-          example: United States
-        country_code:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-          pattern: ^[A-Z]{2}$
-          example: US
-        opens:
+          description: Description of the time range this bucket covers
+          example: '>8 seconds'
+        count:
           type: integer
-          description: Number of opens from this country
-          example: 2841
+          description: Number of opens falling in this bucket
+          example: 2054
         percentage:
           type: number
           format: float
-          description: Percentage of total opens from this country
+          description: Percentage of total opens falling in this bucket
           minimum: 0
           maximum: 100
-          example: 58.8
-    ReadTimeDistribution:
-      type: object
-      description: Distribution of recipient read times for a campaign
-      properties:
-        glanced:
-          $ref: '#/components/schemas/ReadTimeBucket'
-        skimmed:
-          $ref: '#/components/schemas/ReadTimeBucket'
-        read:
-          $ref: '#/components/schemas/ReadTimeBucket'
+          example: 42.5
     CampaignSummary:
       type: object
       description: High-level engagement metrics for an email campaign
@@ -279,6 +254,30 @@ components:
           minimum: 0
           maximum: 100
           example: 18.7
+    Error:
+      type: object
+      description: An API error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication required
+        code:
+          type: string
+          description: Machine-readable error code
+          example: unauthorized
+    ReadTimeDistribution:
+      type: object
+      description: Distribution of recipient read times for a campaign
+      properties:
+        glanced:
+          $ref: '#/components/schemas/ReadTimeBucket'
+        skimmed:
+          $ref: '#/components/schemas/ReadTimeBucket'
+        read:
+          $ref: '#/components/schemas/ReadTimeBucket'
     DeviceBreakdownEntry:
       type: object
       description: Campaign opens attributed to a device category
@@ -303,29 +302,30 @@ components:
           minimum: 0
           maximum: 100
           example: 44.6
-    ReadTimeBucket:
+    GeoBreakdownEntry:
       type: object
-      description: A read time engagement bucket with count and percentage
+      description: Campaign opens attributed to a single country
       properties:
-        label:
+        country:
           type: string
-          description: Human-readable label for the bucket
-          example: Read
-        seconds_range:
+          description: Country name
+          example: United States
+        country_code:
           type: string
-          description: Description of the time range this bucket covers
-          example: '>8 seconds'
-        count:
+          description: ISO 3166-1 alpha-2 country code
+          pattern: ^[A-Z]{2}$
+          example: US
+        opens:
           type: integer
-          description: Number of opens falling in this bucket
-          example: 2054
+          description: Number of opens from this country
+          example: 2841
         percentage:
           type: number
           format: float
-          description: Percentage of total opens falling in this bucket
+          description: Percentage of total opens from this country
           minimum: 0
           maximum: 100
-          example: 42.5
+          example: 58.8
   parameters:
     campaignGuidParam:
       name: campaignGuid

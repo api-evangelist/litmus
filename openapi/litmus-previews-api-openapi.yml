@@ -107,6 +107,39 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    CreateEmailPreviewRequest:
+      type: object
+      description: Request body for creating an email preview
+      required:
+      - html
+      - clients
+      properties:
+        html:
+          type: string
+          description: Full HTML source of the email to be previewed
+          example: <html><body><h1>Hello World</h1></body></html>
+        plain_text:
+          type: string
+          description: Optional plain text version of the email
+        subject:
+          type: string
+          description: Email subject line shown in clients that render subject previews
+          maxLength: 998
+        from_address:
+          type: string
+          format: email
+          description: Sender email address used for spam filter context
+          example: sender@example.com
+        clients:
+          type: array
+          description: List of email client identifiers to generate previews for. Use the /clients endpoint to retrieve valid identifiers.
+          items:
+            type: string
+          minItems: 1
+          example:
+          - gmail_chrome
+          - outlook_2019
+          - apple_mail_14
     Error:
       type: object
       description: An API error response
@@ -187,39 +220,6 @@ components:
           description: List of per-client preview results
           items:
             $ref: '#/components/schemas/ClientPreview'
-    CreateEmailPreviewRequest:
-      type: object
-      description: Request body for creating an email preview
-      required:
-      - html
-      - clients
-      properties:
-        html:
-          type: string
-          description: Full HTML source of the email to be previewed
-          example: <html><body><h1>Hello World</h1></body></html>
-        plain_text:
-          type: string
-          description: Optional plain text version of the email
-        subject:
-          type: string
-          description: Email subject line shown in clients that render subject previews
-          maxLength: 998
-        from_address:
-          type: string
-          format: email
-          description: Sender email address used for spam filter context
-          example: sender@example.com
-        clients:
-          type: array
-          description: List of email client identifiers to generate previews for. Use the /clients endpoint to retrieve valid identifiers.
-          items:
-            type: string
-          minItems: 1
-          example:
-          - gmail_chrome
-          - outlook_2019
-          - apple_mail_14
   parameters:
     clientIdParam:
       name: clientId
