@@ -123,6 +123,25 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    CreateCampaignRequest:
+      type: object
+      description: Request body for creating a new campaign tracking entry
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Human-readable name for the campaign
+          example: March Newsletter 2026
+          maxLength: 255
+        tags:
+          type: array
+          description: Optional tags for organizing campaigns
+          items:
+            type: string
+          example:
+          - newsletter
+          - Q1-2026
     Campaign:
       type: object
       description: An email campaign tracking entry
@@ -154,20 +173,6 @@ components:
           description: Tags assigned to the campaign
           items:
             type: string
-    Error:
-      type: object
-      description: An API error response
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: Authentication required
-        code:
-          type: string
-          description: Machine-readable error code
-          example: unauthorized
     CampaignList:
       type: object
       description: Paginated list of campaigns
@@ -189,26 +194,30 @@ components:
           type: integer
           description: Number of campaigns per page
           example: 25
-    CreateCampaignRequest:
+    Error:
       type: object
-      description: Request body for creating a new campaign tracking entry
+      description: An API error response
       required:
-      - name
+      - message
       properties:
-        name:
+        message:
           type: string
-          description: Human-readable name for the campaign
-          example: March Newsletter 2026
-          maxLength: 255
-        tags:
-          type: array
-          description: Optional tags for organizing campaigns
-          items:
-            type: string
-          example:
-          - newsletter
-          - Q1-2026
+          description: Human-readable error message
+          example: Authentication required
+        code:
+          type: string
+          description: Machine-readable error code
+          example: unauthorized
   parameters:
+    pageParam:
+      name: page
+      in: query
+      description: Page number for paginated results (1-based)
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
     perPageParam:
       name: per_page
       in: query
@@ -228,15 +237,6 @@ components:
         type: string
         format: uuid
         example: 550e8400-e29b-41d4-a716-446655440000
-    pageParam:
-      name: page
-      in: query
-      description: Page number for paginated results (1-based)
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
   securitySchemes:
     basicAuth:
       type: http

@@ -183,6 +183,40 @@ components:
           minimum: 0
           maximum: 100
           example: 38.1
+    ReadTimeDistribution:
+      type: object
+      description: Distribution of recipient read times for a campaign
+      properties:
+        glanced:
+          $ref: '#/components/schemas/ReadTimeBucket'
+        skimmed:
+          $ref: '#/components/schemas/ReadTimeBucket'
+        read:
+          $ref: '#/components/schemas/ReadTimeBucket'
+    DeviceBreakdownEntry:
+      type: object
+      description: Campaign opens attributed to a device category
+      properties:
+        device_type:
+          type: string
+          description: Device category
+          enum:
+          - desktop
+          - mobile
+          - tablet
+          - unknown
+          example: mobile
+        opens:
+          type: integer
+          description: Number of opens from this device type
+          example: 2156
+        percentage:
+          type: number
+          format: float
+          description: Percentage of total opens from this device type
+          minimum: 0
+          maximum: 100
+          example: 44.6
     ReadTimeBucket:
       type: object
       description: A read time engagement bucket with count and percentage
@@ -268,40 +302,6 @@ components:
           type: string
           description: Machine-readable error code
           example: unauthorized
-    ReadTimeDistribution:
-      type: object
-      description: Distribution of recipient read times for a campaign
-      properties:
-        glanced:
-          $ref: '#/components/schemas/ReadTimeBucket'
-        skimmed:
-          $ref: '#/components/schemas/ReadTimeBucket'
-        read:
-          $ref: '#/components/schemas/ReadTimeBucket'
-    DeviceBreakdownEntry:
-      type: object
-      description: Campaign opens attributed to a device category
-      properties:
-        device_type:
-          type: string
-          description: Device category
-          enum:
-          - desktop
-          - mobile
-          - tablet
-          - unknown
-          example: mobile
-        opens:
-          type: integer
-          description: Number of opens from this device type
-          example: 2156
-        percentage:
-          type: number
-          format: float
-          description: Percentage of total opens from this device type
-          minimum: 0
-          maximum: 100
-          example: 44.6
     GeoBreakdownEntry:
       type: object
       description: Campaign opens attributed to a single country

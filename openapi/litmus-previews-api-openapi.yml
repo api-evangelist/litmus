@@ -106,6 +106,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
+  parameters:
+    clientIdParam:
+      name: clientId
+      in: path
+      description: Email client identifier string
+      required: true
+      schema:
+        type: string
+        example: gmail_chrome
+    emailGuidParam:
+      name: emailGuid
+      in: path
+      description: Unique identifier (GUID) for the email preview
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 550e8400-e29b-41d4-a716-446655440000
   schemas:
     CreateEmailPreviewRequest:
       type: object
@@ -140,20 +158,37 @@ components:
           - gmail_chrome
           - outlook_2019
           - apple_mail_14
-    Error:
+    EmailPreview:
       type: object
-      description: An API error response
-      required:
-      - message
+      description: An email preview with rendering results across email clients
       properties:
-        message:
+        id:
           type: string
-          description: Human-readable error message
-          example: Invalid or expired access token
-        code:
+          format: uuid
+          description: Unique identifier for the email preview
+          example: 550e8400-e29b-41d4-a716-446655440000
+        status:
           type: string
-          description: Machine-readable error code
-          example: unauthorized
+          description: Overall status of the preview rendering job
+          enum:
+          - pending
+          - processing
+          - complete
+          - failed
+          example: complete
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the preview was created
+        completed_at:
+          type: string
+          format: date-time
+          description: Timestamp when all client renders completed
+        previews:
+          type: array
+          description: List of per-client preview results
+          items:
+            $ref: '#/components/schemas/ClientPreview'
     ClientPreview:
       type: object
       description: Rendered preview result for a single email client
@@ -189,55 +224,20 @@ components:
           - desktop
           - mobile
           example: desktop
-    EmailPreview:
+    Error:
       type: object
-      description: An email preview with rendering results across email clients
+      description: An API error response
+      required:
+      - message
       properties:
-        id:
+        message:
           type: string
-          format: uuid
-          description: Unique identifier for the email preview
-          example: 550e8400-e29b-41d4-a716-446655440000
-        status:
+          description: Human-readable error message
+          example: Invalid or expired access token
+        code:
           type: string
-          description: Overall status of the preview rendering job
-          enum:
-          - pending
-          - processing
-          - complete
-          - failed
-          example: complete
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the preview was created
-        completed_at:
-          type: string
-          format: date-time
-          description: Timestamp when all client renders completed
-        previews:
-          type: array
-          description: List of per-client preview results
-          items:
-            $ref: '#/components/schemas/ClientPreview'
-  parameters:
-    clientIdParam:
-      name: clientId
-      in: path
-      description: Email client identifier string
-      required: true
-      schema:
-        type: string
-        example: gmail_chrome
-    emailGuidParam:
-      name: emailGuid
-      in: path
-      description: Unique identifier (GUID) for the email preview
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 550e8400-e29b-41d4-a716-446655440000
+          description: Machine-readable error code
+          example: unauthorized
   securitySchemes:
     bearerAuth:
       type: http
