@@ -136,27 +136,6 @@ components:
           - complete
           - failed
           example: complete
-    LinkResult:
-      type: object
-      description: Link reachability check result for a single URL found in the email
-      properties:
-        url:
-          type: string
-          format: uri
-          description: The URL that was checked
-          example: https://www.example.com/landing-page
-        status_code:
-          type: integer
-          description: HTTP status code returned when the URL was fetched
-          example: 200
-        reachable:
-          type: boolean
-          description: Whether the URL was successfully reachable
-          example: true
-        redirect_url:
-          type: string
-          format: uri
-          description: Final URL after any HTTP redirects, if applicable
     PreviewResult:
       type: object
       description: Email client rendering result within a test
@@ -194,6 +173,27 @@ components:
           - desktop
           - mobile
           example: desktop
+    LinkResult:
+      type: object
+      description: Link reachability check result for a single URL found in the email
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The URL that was checked
+          example: https://www.example.com/landing-page
+        status_code:
+          type: integer
+          description: HTTP status code returned when the URL was fetched
+          example: 200
+        reachable:
+          type: boolean
+          description: Whether the URL was successfully reachable
+          example: true
+        redirect_url:
+          type: string
+          format: uri
+          description: Final URL after any HTTP redirects, if applicable
     Error:
       type: object
       description: An API error response
