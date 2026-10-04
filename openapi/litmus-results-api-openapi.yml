@@ -108,6 +108,27 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    LinkResult:
+      type: object
+      description: Link reachability check result for a single URL found in the email
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The URL that was checked
+          example: https://www.example.com/landing-page
+        status_code:
+          type: integer
+          description: HTTP status code returned when the URL was fetched
+          example: 200
+        reachable:
+          type: boolean
+          description: Whether the URL was successfully reachable
+          example: true
+        redirect_url:
+          type: string
+          format: uri
+          description: Final URL after any HTTP redirects, if applicable
     SpamResult:
       type: object
       description: Spam filter check result for a single spam filter service
@@ -136,6 +157,20 @@ components:
           - complete
           - failed
           example: complete
+    Error:
+      type: object
+      description: An API error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication required
+        code:
+          type: string
+          description: Machine-readable error code
+          example: unauthorized
     PreviewResult:
       type: object
       description: Email client rendering result within a test
@@ -173,41 +208,6 @@ components:
           - desktop
           - mobile
           example: desktop
-    LinkResult:
-      type: object
-      description: Link reachability check result for a single URL found in the email
-      properties:
-        url:
-          type: string
-          format: uri
-          description: The URL that was checked
-          example: https://www.example.com/landing-page
-        status_code:
-          type: integer
-          description: HTTP status code returned when the URL was fetched
-          example: 200
-        reachable:
-          type: boolean
-          description: Whether the URL was successfully reachable
-          example: true
-        redirect_url:
-          type: string
-          format: uri
-          description: Final URL after any HTTP redirects, if applicable
-    Error:
-      type: object
-      description: An API error response
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: Authentication required
-        code:
-          type: string
-          description: Machine-readable error code
-          example: unauthorized
   parameters:
     testIdParam:
       name: testId

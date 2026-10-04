@@ -123,6 +123,15 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   parameters:
+    campaignGuidParam:
+      name: campaignGuid
+      in: path
+      description: Unique identifier (GUID) for the email campaign
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 550e8400-e29b-41d4-a716-446655440000
     perPageParam:
       name: per_page
       in: query
@@ -142,15 +151,6 @@ components:
         type: integer
         minimum: 1
         default: 1
-    campaignGuidParam:
-      name: campaignGuid
-      in: path
-      description: Unique identifier (GUID) for the email campaign
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 550e8400-e29b-41d4-a716-446655440000
   schemas:
     CreateCampaignRequest:
       type: object
@@ -171,27 +171,6 @@ components:
           example:
           - newsletter
           - Q1-2026
-    CampaignList:
-      type: object
-      description: Paginated list of campaigns
-      properties:
-        campaigns:
-          type: array
-          description: Array of campaign summaries
-          items:
-            $ref: '#/components/schemas/Campaign'
-        total:
-          type: integer
-          description: Total number of campaigns in the account
-          example: 54
-        page:
-          type: integer
-          description: Current page number
-          example: 1
-        per_page:
-          type: integer
-          description: Number of campaigns per page
-          example: 25
     Campaign:
       type: object
       description: An email campaign tracking entry
@@ -237,6 +216,27 @@ components:
           type: string
           description: Machine-readable error code
           example: unauthorized
+    CampaignList:
+      type: object
+      description: Paginated list of campaigns
+      properties:
+        campaigns:
+          type: array
+          description: Array of campaign summaries
+          items:
+            $ref: '#/components/schemas/Campaign'
+        total:
+          type: integer
+          description: Total number of campaigns in the account
+          example: 54
+        page:
+          type: integer
+          description: Current page number
+          example: 1
+        per_page:
+          type: integer
+          description: Number of campaigns per page
+          example: 25
   securitySchemes:
     basicAuth:
       type: http

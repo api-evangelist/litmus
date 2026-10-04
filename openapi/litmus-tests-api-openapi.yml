@@ -166,27 +166,20 @@ components:
         links_requested:
           type: boolean
           description: Whether link checking was requested
-    TestList:
+    Error:
       type: object
-      description: Paginated list of email tests
+      description: An API error response
+      required:
+      - message
       properties:
-        tests:
-          type: array
-          description: Array of test summaries
-          items:
-            $ref: '#/components/schemas/Test'
-        total:
-          type: integer
-          description: Total number of tests in the account
-          example: 128
-        page:
-          type: integer
-          description: Current page number
-          example: 1
-        per_page:
-          type: integer
-          description: Number of tests per page
-          example: 25
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication required
+        code:
+          type: string
+          description: Machine-readable error code
+          example: unauthorized
     CreateTestRequest:
       type: object
       description: Request body for creating an email test
@@ -228,20 +221,27 @@ components:
           type: boolean
           description: Whether to run link reachability checks on URLs in the email HTML
           default: false
-    Error:
+    TestList:
       type: object
-      description: An API error response
-      required:
-      - message
+      description: Paginated list of email tests
       properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: Authentication required
-        code:
-          type: string
-          description: Machine-readable error code
-          example: unauthorized
+        tests:
+          type: array
+          description: Array of test summaries
+          items:
+            $ref: '#/components/schemas/Test'
+        total:
+          type: integer
+          description: Total number of tests in the account
+          example: 128
+        page:
+          type: integer
+          description: Current page number
+          example: 1
+        per_page:
+          type: integer
+          description: Number of tests per page
+          example: 25
   parameters:
     perPageParam:
       name: per_page
