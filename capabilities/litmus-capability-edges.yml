@@ -1,0 +1,34 @@
+slug: litmus
+provider: Litmus
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Analytics
+  spec_file: litmus-analytics-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: retrieving email campaign engagement metrics including read rates, deletion rates, device
+    types, email clients, geographic data
+  reason: Email campaign engagement analytics collected via tracking pixel is email/digital marketing
+    measurement. Some ambiguity between Digital Marketing Management and Marketing Operations measurement.
+- tag: Campaigns
+  spec_file: litmus-campaigns-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.72
+  evidence: GET /campaigns listCampaigns; POST /campaigns createCampaign — email campaign engagement metrics
+  reason: Lifecycle management of email marketing campaign records for tracking and analytics sits under
+    digital/email marketing management rather than any technical capability.
