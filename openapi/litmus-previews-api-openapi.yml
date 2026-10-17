@@ -106,24 +106,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  parameters:
-    emailGuidParam:
-      name: emailGuid
-      in: path
-      description: Unique identifier (GUID) for the email preview
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 550e8400-e29b-41d4-a716-446655440000
-    clientIdParam:
-      name: clientId
-      in: path
-      description: Email client identifier string
-      required: true
-      schema:
-        type: string
-        example: gmail_chrome
   schemas:
     EmailPreview:
       type: object
@@ -156,6 +138,41 @@ components:
           description: List of per-client preview results
           items:
             $ref: '#/components/schemas/ClientPreview'
+    ClientPreview:
+      type: object
+      description: Rendered preview result for a single email client
+      properties:
+        client_id:
+          type: string
+          description: Email client identifier for this preview
+          example: gmail_chrome
+        status:
+          type: string
+          description: Rendering status for this client
+          enum:
+          - pending
+          - processing
+          - complete
+          - failed
+          - unavailable
+          example: complete
+        full_url:
+          type: string
+          format: uri
+          description: URL to the full-size rendered screenshot image
+          example: https://litmus-screenshots.s3.amazonaws.com/full/abc123.png
+        thumb_url:
+          type: string
+          format: uri
+          description: URL to the thumbnail rendered screenshot image
+          example: https://litmus-screenshots.s3.amazonaws.com/thumb/abc123.png
+        orientation:
+          type: string
+          description: Rendering orientation of the screenshot
+          enum:
+          - desktop
+          - mobile
+          example: desktop
     CreateEmailPreviewRequest:
       type: object
       description: Request body for creating an email preview
@@ -203,41 +220,24 @@ components:
           type: string
           description: Machine-readable error code
           example: unauthorized
-    ClientPreview:
-      type: object
-      description: Rendered preview result for a single email client
-      properties:
-        client_id:
-          type: string
-          description: Email client identifier for this preview
-          example: gmail_chrome
-        status:
-          type: string
-          description: Rendering status for this client
-          enum:
-          - pending
-          - processing
-          - complete
-          - failed
-          - unavailable
-          example: complete
-        full_url:
-          type: string
-          format: uri
-          description: URL to the full-size rendered screenshot image
-          example: https://litmus-screenshots.s3.amazonaws.com/full/abc123.png
-        thumb_url:
-          type: string
-          format: uri
-          description: URL to the thumbnail rendered screenshot image
-          example: https://litmus-screenshots.s3.amazonaws.com/thumb/abc123.png
-        orientation:
-          type: string
-          description: Rendering orientation of the screenshot
-          enum:
-          - desktop
-          - mobile
-          example: desktop
+  parameters:
+    clientIdParam:
+      name: clientId
+      in: path
+      description: Email client identifier string
+      required: true
+      schema:
+        type: string
+        example: gmail_chrome
+    emailGuidParam:
+      name: emailGuid
+      in: path
+      description: Unique identifier (GUID) for the email preview
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 550e8400-e29b-41d4-a716-446655440000
   securitySchemes:
     bearerAuth:
       type: http

@@ -107,28 +107,53 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
+  parameters:
+    testIdParam:
+      name: testId
+      in: path
+      description: Numeric identifier of the email test
+      required: true
+      schema:
+        type: integer
+        example: 12345678
   schemas:
-    LinkResult:
+    PreviewResult:
       type: object
-      description: Link reachability check result for a single URL found in the email
+      description: Email client rendering result within a test
       properties:
-        url:
+        client:
+          type: string
+          description: Email client slug identifier
+          example: GMAIL
+        client_name:
+          type: string
+          description: Human-readable name of the email client
+          example: Gmail
+        status:
+          type: string
+          description: Rendering status for this client
+          enum:
+          - pending
+          - processing
+          - complete
+          - failed
+          - unavailable
+          example: complete
+        full_image_url:
           type: string
           format: uri
-          description: The URL that was checked
-          example: https://www.example.com/landing-page
-        status_code:
-          type: integer
-          description: HTTP status code returned when the URL was fetched
-          example: 200
-        reachable:
-          type: boolean
-          description: Whether the URL was successfully reachable
-          example: true
-        redirect_url:
+          description: URL to the full-size rendered screenshot
+        thumb_image_url:
           type: string
           format: uri
-          description: Final URL after any HTTP redirects, if applicable
+          description: URL to the thumbnail rendered screenshot
+        orientation:
+          type: string
+          description: Display orientation of the rendering
+          enum:
+          - desktop
+          - mobile
+          example: desktop
     SpamResult:
       type: object
       description: Spam filter check result for a single spam filter service
@@ -171,52 +196,27 @@ components:
           type: string
           description: Machine-readable error code
           example: unauthorized
-    PreviewResult:
+    LinkResult:
       type: object
-      description: Email client rendering result within a test
+      description: Link reachability check result for a single URL found in the email
       properties:
-        client:
-          type: string
-          description: Email client slug identifier
-          example: GMAIL
-        client_name:
-          type: string
-          description: Human-readable name of the email client
-          example: Gmail
-        status:
-          type: string
-          description: Rendering status for this client
-          enum:
-          - pending
-          - processing
-          - complete
-          - failed
-          - unavailable
-          example: complete
-        full_image_url:
+        url:
           type: string
           format: uri
-          description: URL to the full-size rendered screenshot
-        thumb_image_url:
+          description: The URL that was checked
+          example: https://www.example.com/landing-page
+        status_code:
+          type: integer
+          description: HTTP status code returned when the URL was fetched
+          example: 200
+        reachable:
+          type: boolean
+          description: Whether the URL was successfully reachable
+          example: true
+        redirect_url:
           type: string
           format: uri
-          description: URL to the thumbnail rendered screenshot
-        orientation:
-          type: string
-          description: Display orientation of the rendering
-          enum:
-          - desktop
-          - mobile
-          example: desktop
-  parameters:
-    testIdParam:
-      name: testId
-      in: path
-      description: Numeric identifier of the email test
-      required: true
-      schema:
-        type: integer
-        example: 12345678
+          description: Final URL after any HTTP redirects, if applicable
   securitySchemes:
     basicAuth:
       type: http
