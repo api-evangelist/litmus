@@ -153,6 +153,16 @@ apis:
     url: https://docs.litmus.com/legacy-previews
   - type: Documentation
     url: https://docs.litmus.com/email-analytics
+- aid: litmus:litmus-ftpsites-api
+  name: Litmus Ftp Sites API
+  description: The FtpSites API from Litmus — 1 operation(s) for ftpsites.
+  humanURL: https://docs.litmus.com/instant
+  baseURL: https://instant-api.litmus.com/v1
+  tags:
+  - FtpSites
+  properties:
+  - type: OpenAPI
+    url: openapi/litmus-ftpsites-api-openapi.yml
 common:
   - type: Plans
     url: plans/litmus-plans-pricing.yml

@@ -107,37 +107,39 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    EmailPreview:
+    CreateEmailPreviewRequest:
       type: object
-      description: An email preview with rendering results across email clients
+      description: Request body for creating an email preview
+      required:
+      - html
+      - clients
       properties:
-        id:
+        html:
           type: string
-          format: uuid
-          description: Unique identifier for the email preview
-          example: 550e8400-e29b-41d4-a716-446655440000
-        status:
+          description: Full HTML source of the email to be previewed
+          example: <html><body><h1>Hello World</h1></body></html>
+        plain_text:
           type: string
-          description: Overall status of the preview rendering job
-          enum:
-          - pending
-          - processing
-          - complete
-          - failed
-          example: complete
-        created_at:
+          description: Optional plain text version of the email
+        subject:
           type: string
-          format: date-time
-          description: Timestamp when the preview was created
-        completed_at:
+          description: Email subject line shown in clients that render subject previews
+          maxLength: 998
+        from_address:
           type: string
-          format: date-time
-          description: Timestamp when all client renders completed
-        previews:
+          format: email
+          description: Sender email address used for spam filter context
+          example: sender@example.com
+        clients:
           type: array
-          description: List of per-client preview results
+          description: List of email client identifiers to generate previews for. Use the /clients endpoint to retrieve valid identifiers.
           items:
-            $ref: '#/components/schemas/ClientPreview'
+            type: string
+          minItems: 1
+          example:
+          - gmail_chrome
+          - outlook_2019
+          - apple_mail_14
     ClientPreview:
       type: object
       description: Rendered preview result for a single email client
@@ -173,39 +175,6 @@ components:
           - desktop
           - mobile
           example: desktop
-    CreateEmailPreviewRequest:
-      type: object
-      description: Request body for creating an email preview
-      required:
-      - html
-      - clients
-      properties:
-        html:
-          type: string
-          description: Full HTML source of the email to be previewed
-          example: <html><body><h1>Hello World</h1></body></html>
-        plain_text:
-          type: string
-          description: Optional plain text version of the email
-        subject:
-          type: string
-          description: Email subject line shown in clients that render subject previews
-          maxLength: 998
-        from_address:
-          type: string
-          format: email
-          description: Sender email address used for spam filter context
-          example: sender@example.com
-        clients:
-          type: array
-          description: List of email client identifiers to generate previews for. Use the /clients endpoint to retrieve valid identifiers.
-          items:
-            type: string
-          minItems: 1
-          example:
-          - gmail_chrome
-          - outlook_2019
-          - apple_mail_14
     Error:
       type: object
       description: An API error response
@@ -220,6 +189,37 @@ components:
           type: string
           description: Machine-readable error code
           example: unauthorized
+    EmailPreview:
+      type: object
+      description: An email preview with rendering results across email clients
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the email preview
+          example: 550e8400-e29b-41d4-a716-446655440000
+        status:
+          type: string
+          description: Overall status of the preview rendering job
+          enum:
+          - pending
+          - processing
+          - complete
+          - failed
+          example: complete
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the preview was created
+        completed_at:
+          type: string
+          format: date-time
+          description: Timestamp when all client renders completed
+        previews:
+          type: array
+          description: List of per-client preview results
+          items:
+            $ref: '#/components/schemas/ClientPreview'
   parameters:
     clientIdParam:
       name: clientId

@@ -1,17 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Litmus Email Analytics Campaigns API
-  description: The Litmus Email Analytics API provides REST endpoints for retrieving email campaign engagement metrics including read rates, deletion rates, device types, email clients, geographic data, and forwarding activity. Campaign data is accessed by GUID and returns detailed activity summary reports. Analytics data is collected via a tracking pixel embedded in sent emails and the API surfaces aggregated engagement breakdowns.
-  version: 1.0.0
-  contact:
-    name: Litmus Support
-    url: https://www.litmus.com/support/
-  termsOfService: https://www.litmus.com/terms-of-service/
+  title: Litmus Campaigns API
+  version: '1.0'
+  description: 'Operations tagged Campaigns across 2 of this provider''s published API definitions: litmus-email-analytics-openapi.yml, litmus-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://analytics-api.litmus.com/api/v1
   description: Litmus Email Analytics API Production Server
-security:
-- basicAuth: []
+- url: https://analytics-api.litmus.com
 tags:
 - name: Campaigns
   description: Email campaign tracking and management
@@ -39,6 +34,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+      - basicAuth: []
     post:
       operationId: createCampaign
       summary: Litmus Create a campaign
@@ -70,6 +67,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+      - basicAuth: []
+    servers:
+    - url: https://analytics-api.litmus.com/api/v1
+      description: Litmus Email Analytics API Production Server
   /campaigns/{campaignGuid}:
     get:
       operationId: getCampaign
@@ -98,6 +100,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+      - basicAuth: []
     delete:
       operationId: deleteCampaign
       summary: Litmus Delete a campaign
@@ -121,8 +125,1378 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+      - basicAuth: []
+    servers:
+    - url: https://analytics-api.litmus.com/api/v1
+      description: Litmus Email Analytics API Production Server
+  /api/v1/Campaigns/{guid}/MailClientUsageReport:
+    get:
+      tags:
+      - Campaigns
+      summary: Get mail client usage report for campaign
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsByGuidMailClientUsageReport
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/OpenCounts:
+    post:
+      tags:
+      - Campaigns
+      summary: Get open counts from a set of campaigns
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: Guids
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: postApiV1CampaignsOpenCounts
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/OpenCountsForUser/{userGuid}/{fromDate}/{untilDate}:
+    get:
+      tags:
+      - Campaigns
+      summary: Get a set of campaign open counts for a given period for a user
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: userGuid
+        in: path
+        description: identifies the user of a campaign
+        required: true
+        schema:
+          type: string
+      - name: fromDate
+        in: path
+        description: date string in the format yyyy-MM-dd
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: untilDate
+        in: path
+        description: date string in the format yyyy-MM-dd
+        required: true
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsOpenCountsForUserByUserGuidByFromDateByUntilDate
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/RenderingCategoryReport:
+    get:
+      tags:
+      - Campaigns
+      summary: Get rendering category report for campaign
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsByGuidRenderingCategoryReport
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/GroupUsageReport:
+    get:
+      tags:
+      - Campaigns
+      summary: Get group usage report for campaign
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsByGuidGroupUsageReport
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/BrowserUsageReport:
+    get:
+      tags:
+      - Campaigns
+      summary: Get browser usage report for campaign
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsByGuidBrowserUsageReport
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns:
+    post:
+      tags:
+      - Campaigns
+      summary: Create a new campaign
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      requestBody:
+        description: a new campaign object
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/NewCampaign'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewCampaign'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/NewCampaign'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/NewCampaign'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Campaign_2'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign_2'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Campaign_2'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: postApiV1Campaigns
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}:
+    put:
+      tags:
+      - Campaigns
+      summary: updates an existing campaign
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      parameters:
+      - name: guid
+        in: query
+        description: identifies a campaign
+        schema:
+          type: string
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: an update campaign object
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/UpdateCampaign'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCampaign'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCampaign'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UpdateCampaign'
+      responses:
+        '200':
+          description: Campaign updated
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: putApiV1CampaignsByGuid
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/Start:
+    put:
+      tags:
+      - Campaigns
+      summary: Start a campaign
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: boolean
+            application/json:
+              schema:
+                type: boolean
+            text/json:
+              schema:
+                type: boolean
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: putApiV1CampaignsByGuidStart
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/Restart:
+    put:
+      tags:
+      - Campaigns
+      summary: Restart a campaign with a new expiration date
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      - name: newExpirationDate
+        in: query
+        description: identifies a new expiration date for the campaign
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: boolean
+            application/json:
+              schema:
+                type: boolean
+            text/json:
+              schema:
+                type: boolean
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: putApiV1CampaignsByGuidRestart
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/Clear:
+    put:
+      tags:
+      - Campaigns
+      summary: Clear all campaign data
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: boolean
+            application/json:
+              schema:
+                type: boolean
+            text/json:
+              schema:
+                type: boolean
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: putApiV1CampaignsByGuidClear
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/ClearIndividual:
+    put:
+      tags:
+      - Campaigns
+      summary: Clear individual data for a campaign but retain aggregated data
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/HttpResponseMessage'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpResponseMessage'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/HttpResponseMessage'
+        '410':
+          description: Gone
+      deprecated: true
+      operationId: putApiV1CampaignsByGuidClearIndividual
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/EmailExportLink:
+    put:
+      tags:
+      - Campaigns
+      summary: Creates an export job with the given email
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: export options, including email recipient and optional date range
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/ExportOptions'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportOptions'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ExportOptions'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ExportOptions'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: putApiV1CampaignsByGuidEmailExportLink
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/ConfigureNotificationEndpoint:
+    post:
+      tags:
+      - Campaigns
+      summary: Configure campaign notifications
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      requestBody:
+        description: options for notification
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/EndpointConfiguration'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EndpointConfiguration'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EndpointConfiguration'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EndpointConfiguration'
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: postApiV1CampaignsConfigureNotificationEndpoint
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/Subscribe:
+    put:
+      tags:
+      - Campaigns
+      summary: Subscribe to notifications for a campaign
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: putApiV1CampaignsByGuidSubscribe
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/UnSubscribe:
+    put:
+      tags:
+      - Campaigns
+      summary: Unsubscribe to notifications for a campaign
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: putApiV1CampaignsByGuidUnSubscribe
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/Get:
+    post:
+      tags:
+      - Campaigns
+      summary: Get campaign data from a set of campaigns
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      requestBody:
+        description: identifies a set of campaigns
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Campaign_2'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Campaign_2'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Campaign_2'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: postApiV1CampaignsGet
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/OpenCounts/{year}/{month}:
+    post:
+      tags:
+      - Campaigns
+      summary: Get several campaign open counts from a given month
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: year
+        in: query
+        description: 4-digit year
+        schema:
+          type: integer
+          format: int32
+      - name: month
+        in: query
+        description: 'max 2-digit month, ex: 1=January, 12=December'
+        schema:
+          type: integer
+          format: int32
+      - name: year
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: month
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: identifies a set of campaigns
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenCountReport'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenCountReport'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenCountReport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: postApiV1CampaignsOpenCountsByYearByMonth
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/OpenCounts/{fromDate}/{untilDate}:
+    post:
+      tags:
+      - Campaigns
+      summary: Get a set of campaign open counts for a given period
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: fromDate
+        in: query
+        description: date string in the format yyyy-MM-dd
+        schema:
+          type: string
+          format: date-time
+      - name: untilDate
+        in: query
+        description: date string in the format yyyy-MM-dd
+        schema:
+          type: string
+          format: date-time
+      - name: fromDate
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: untilDate
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: identifies a set of campaigns
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenCountReport'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenCountReport'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenCountReport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: postApiV1CampaignsOpenCountsByFromDateByUntilDate
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/OpenCountsForUser/{userGuid}/{monthDate}:
+    get:
+      tags:
+      - Campaigns
+      summary: Get a set of campaign open counts for a given month for a user
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: userGuid
+        in: path
+        description: Identifies the user of a campaign
+        required: true
+        schema:
+          type: string
+      - name: monthDate
+        in: path
+        description: date string in the format yyyy-MM
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenCountReport'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenCountReport'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenCountReport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsOpenCountsForUserByUserGuidByMonthDate
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/Campaigns/OpenCountsByMonth:
+    post:
+      tags:
+      - Campaigns
+      summary: Get a set of campaign open counts by month
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      requestBody:
+        description: identifies a set of campaigns
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenCountsByMonth'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenCountsByMonth'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OpenCountsByMonth'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: postApiV1CampaignsCampaignsOpenCountsByMonth
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/Campaigns/AdvancedOpenCounts:
+    post:
+      tags:
+      - Campaigns
+      summary: Get advanced open counts for a set of campaigns
+      requestBody:
+        description: identifies a set of campaigns
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdvancedOpenCount'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdvancedOpenCount'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdvancedOpenCount'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      deprecated: true
+      operationId: postApiV1CampaignsCampaignsAdvancedOpenCounts
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/ActivityReport:
+    get:
+      tags:
+      - Campaigns
+      summary: Get activity report for campaign
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActivityReport'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActivityReport'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActivityReport'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActivityReport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsByGuidActivityReport
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/ActivitySummaryReport:
+    get:
+      tags:
+      - Campaigns
+      summary: Get activity summary report for campaign
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ActivitySummaryReport'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivitySummaryReport'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ActivitySummaryReport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsByGuidActivitySummaryReport
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/EngagementReport:
+    get:
+      tags:
+      - Campaigns
+      summary: Get engagement report for campaign
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EngagementReport'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EngagementReport'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EngagementReport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsByGuidEngagementReport
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/DetailedEngagementReport:
+    get:
+      tags:
+      - Campaigns
+      summary: Get detailed engagement report for campaign
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/DetailedEngagementReport'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailedEngagementReport'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/DetailedEngagementReport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsByGuidDetailedEngagementReport
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/GroupEngagementReport:
+    get:
+      tags:
+      - Campaigns
+      summary: Get group engagement report for a campaign
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupEngagementReport'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupEngagementReport'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupEngagementReport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsByGuidGroupEngagementReport
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/MailClientEngagementReport:
+    get:
+      tags:
+      - Campaigns
+      summary: Gets a report describing engagement at the user agent level
+      description: 'The naming of this method might make you think it returns engagement at the mail client level,
+
+        but it really returns engagement at the user agent level.
+
+        SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: The unique identifier for the campaign the report should be generated for.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MailClientEngagementReport'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MailClientEngagementReport'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MailClientEngagementReport'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MailClientEngagementReport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsByGuidMailClientEngagementReport
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/DetailedMailClientEngagementReport:
+    get:
+      tags:
+      - Campaigns
+      summary: Get mail client engagement report for campaign
+      description: 'SLO: Slow Reports / 3rd Party Dependencies / Very Resource Bound (15000ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DetailedMailClientEngagementReport'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DetailedMailClientEngagementReport'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DetailedMailClientEngagementReport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsByGuidDetailedMailClientEngagementReport
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/{guid}/GeolocationReport:
+    get:
+      tags:
+      - Campaigns
+      summary: Get geolocation report for campaign
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GeolocationReport'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GeolocationReport'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GeolocationReport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsByGuidGeolocationReport
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/Compare:
+    post:
+      tags:
+      - Campaigns
+      summary: Get a comparable report for a set of campaigns
+      description: 'SLO: Fast Reports / Resource Bound (2000ms)'
+      requestBody:
+        description: identifies a set of campaigns
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Campaigns'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComparableCampaign'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComparableCampaign'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComparableCampaign'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComparableCampaign'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: postApiV1CampaignsCompare
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/AllExpiringGuids/{untilDate}:
+    get:
+      tags:
+      - Campaigns
+      summary: Get all expiring guids until a given date
+      description: 'SLO: Slow Reports / 3rd Party Dependencies / Very Resource Bound (15000ms)'
+      parameters:
+      - name: untilDate
+        in: path
+        description: date string in the format yyyy-MM-dd
+        required: true
+        schema:
+          pattern: ^\d{4}-\d{2}-\d{2}$
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExpiringCampaign'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExpiringCampaign'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExpiringCampaign'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsAllExpiringGuidsByUntilDate
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/SetExpiration/{guid}:
+    put:
+      tags:
+      - Campaigns
+      summary: Set a new expiration date for a campaign
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: The guid of the EA campaign.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The new expiration date.
+        content:
+          application/json-patch+json:
+            schema:
+              type: string
+              format: date-time
+          application/json:
+            schema:
+              type: string
+              format: date-time
+          text/json:
+            schema:
+              type: string
+              format: date-time
+          application/*+json:
+            schema:
+              type: string
+              format: date-time
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: putApiV1CampaignsSetExpirationByGuid
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
+  /api/v1/Campaigns/SetToNeverExpire/{guid}:
+    put:
+      tags:
+      - Campaigns
+      summary: Sets a single campaign to never expire
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: The guid of the EA campaign.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: putApiV1CampaignsSetToNeverExpireByGuid
+      x-operation-id-source: derived
+    servers:
+    - url: https://analytics-api.litmus.com
 components:
   schemas:
+    CreateCampaignRequest:
+      type: object
+      description: Request body for creating a new campaign tracking entry
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Human-readable name for the campaign
+          example: March Newsletter 2026
+          maxLength: 255
+        tags:
+          type: array
+          description: Optional tags for organizing campaigns
+          items:
+            type: string
+          example:
+          - newsletter
+          - Q1-2026
+    Error:
+      type: object
+      description: An API error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication required
+        code:
+          type: string
+          description: Machine-readable error code
+          example: unauthorized
     CampaignList:
       type: object
       description: Paginated list of campaigns
@@ -175,39 +1549,858 @@ components:
           description: Tags assigned to the campaign
           items:
             type: string
-    Error:
+    HttpContent:
       type: object
-      description: An API error response
-      required:
-      - message
       properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: Authentication required
-        code:
-          type: string
-          description: Machine-readable error code
-          example: unauthorized
-    CreateCampaignRequest:
+        Headers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/StringStringIEnumerableKeyValuePair'
+          readOnly: true
+      additionalProperties: false
+    HttpVersionPolicy:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    ActivitySummaryReport:
       type: object
-      description: Request body for creating a new campaign tracking entry
-      required:
-      - name
       properties:
-        name:
+        ReadAvgCount:
+          type: integer
+          format: int32
+        PrintAvgCount:
+          type: integer
+          format: int32
+        ForwardAvgCount:
+          type: integer
+          format: int32
+        PrintCount:
+          type: integer
+          format: int64
+        ForwardCount:
+          type: integer
+          format: int64
+        ReadCount:
+          type: integer
+          format: int64
+      additionalProperties: false
+    GroupEngagementReport:
+      type: object
+      properties:
+        Name:
+          type:
+          - string
+          - 'null'
+        Count:
+          type: integer
+          format: int32
+        Total:
+          type: integer
+          format: int32
+        GlancedOrUnreadCount:
+          type: integer
+          format: int32
+        SkimmedCount:
+          type: integer
+          format: int32
+        ReadCount:
+          type: integer
+          format: int32
+        GlancedOrUnreadPercentage:
+          type: integer
+          format: int32
+        SkimmedPercentage:
+          type: integer
+          format: int32
+        ReadPercentage:
+          type: integer
+          format: int32
+      additionalProperties: false
+    OpenCountsByMonth:
+      type: object
+      properties:
+        CampaignGuid:
+          type:
+          - string
+          - 'null'
+        TotalOpens:
+          type: integer
+          format: int32
+        Month:
+          type: integer
+          format: int32
+        Year:
+          type: integer
+          format: int32
+      additionalProperties: false
+    EngagementReport:
+      type: object
+      properties:
+        GlancedOrUnreadPercentage:
+          type: integer
+          format: int32
+        SkimmedPercentage:
+          type: integer
+          format: int32
+        ReadPercentage:
+          type: integer
+          format: int32
+        GlancedOrUnreadAvgPercentage:
+          type: integer
+          format: int32
+        SkimmedAvgPercentage:
+          type: integer
+          format: int32
+        ReadAvgPercentage:
+          type: integer
+          format: int32
+        GlancedOrUnreadCount:
+          type: integer
+          format: int32
+        SkimmedCount:
+          type: integer
+          format: int32
+        ReadCount:
+          type: integer
+          format: int32
+        Total:
+          type: integer
+          format: int32
+      additionalProperties: false
+    AdvancedOpenCount:
+      type: object
+      properties:
+        CampaignGuid:
+          type:
+          - string
+          - 'null'
+        TotalOpens:
+          type: integer
+          format: int32
+        CreatedAt:
           type: string
-          description: Human-readable name for the campaign
-          example: March Newsletter 2026
-          maxLength: 255
-        tags:
-          type: array
-          description: Optional tags for organizing campaigns
+          format: date-time
+        SentAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        ExpiresAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      additionalProperties: false
+    HttpResponseMessage:
+      type: object
+      properties:
+        Version:
+          type:
+          - string
+          - 'null'
+        Content:
+          $ref: '#/components/schemas/HttpContent'
+        StatusCode:
+          $ref: '#/components/schemas/HttpStatusCode'
+        ReasonPhrase:
+          type:
+          - string
+          - 'null'
+        Headers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/StringStringIEnumerableKeyValuePair'
+          readOnly: true
+        TrailingHeaders:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/StringStringIEnumerableKeyValuePair'
+          readOnly: true
+        RequestMessage:
+          $ref: '#/components/schemas/HttpRequestMessage'
+        IsSuccessStatusCode:
+          type: boolean
+          readOnly: true
+      additionalProperties: false
+    EndpointConfiguration:
+      type: object
+      properties:
+        UserGuid:
+          type:
+          - string
+          - 'null'
+        Endpoint:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    HttpMethod:
+      type: object
+      properties:
+        Method:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ExportOptions:
+      type: object
+      properties:
+        Email:
+          type:
+          - string
+          - 'null'
+        FromDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        UntilDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        SplitFilesDaily:
+          type:
+          - boolean
+          - 'null'
+      additionalProperties: false
+    ExpiringCampaign:
+      type: object
+      properties:
+        CampaignGuid:
+          type:
+          - string
+          - 'null'
+        CampaignName:
+          type:
+          - string
+          - 'null'
+        ExpiresAt:
+          type: string
+          format: date-time
+      additionalProperties: false
+    UpdateCampaign:
+      type: object
+      properties:
+        UserGuid:
+          type:
+          - string
+          - 'null'
+        CampaignName:
+          type:
+          - string
+          - 'null'
+        ExpiresAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        NeverExpires:
+          type:
+          - boolean
+          - 'null'
+      additionalProperties: false
+    HttpRequestMessage:
+      type: object
+      properties:
+        Version:
+          type:
+          - string
+          - 'null'
+        VersionPolicy:
+          $ref: '#/components/schemas/HttpVersionPolicy'
+        Content:
+          $ref: '#/components/schemas/HttpContent'
+        Method:
+          $ref: '#/components/schemas/HttpMethod'
+        RequestUri:
+          type:
+          - string
+          - 'null'
+          format: uri
+        Headers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/StringStringIEnumerableKeyValuePair'
+          readOnly: true
+        Properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties: {}
+          readOnly: true
+          deprecated: true
+        Options:
+          type:
+          - object
+          - 'null'
+          additionalProperties: {}
+          readOnly: true
+      additionalProperties: false
+    ActivityReport:
+      type: object
+      properties:
+        Type:
+          type:
+          - string
+          - 'null'
+        Detail:
+          type:
+          - string
+          - 'null'
+        RegionCode:
+          type:
+          - string
+          - 'null'
+        RegionName:
+          type:
+          - string
+          - 'null'
+        City:
+          type:
+          - string
+          - 'null'
+        Country:
+          type:
+          - string
+          - 'null'
+        Latitude:
+          type: number
+          format: float
+        Longitude:
+          type: number
+          format: float
+        MailClient:
+          type:
+          - string
+          - 'null'
+        CreatedAt:
+          type: string
+          format: date-time
+      additionalProperties: false
+    Campaign_2:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+        BugHtml:
+          type:
+          - string
+          - 'null'
+        Guid:
+          type:
+          - string
+          - 'null'
+        ReportGuid:
+          type:
+          - string
+          - 'null'
+        UserGuid:
+          type:
+          - string
+          - 'null'
+        CreatedAt:
+          type: string
+          format: date-time
+        SentAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        OpenCount:
+          type: integer
+          format: int64
+        TrackGeolocation:
+          type: boolean
+        ExpiresAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        NeverExpires:
+          type: boolean
+        IncludeCustomData:
+          type: boolean
+      additionalProperties: false
+    NewCampaign:
+      type: object
+      properties:
+        UserGuid:
+          type:
+          - string
+          - 'null'
+        CampaignName:
+          type:
+          - string
+          - 'null'
+        IsPrivate:
+          type: boolean
+        TrackGeolocation:
+          type: boolean
+        IsIndividual:
+          type: boolean
+        CreatedVia:
+          type:
+          - string
+          - 'null'
+        IncludeCustomData:
+          type: boolean
+        TransitionalPii:
+          type: boolean
+      additionalProperties: false
+    DetailedMailClientEngagementReport:
+      type: object
+      properties:
+        Name:
+          type:
+          - string
+          - 'null'
+        Count:
+          type: integer
+          format: int32
+        ReadCount:
+          type: integer
+          format: int32
+        Less2SecCount:
+          type: integer
+          format: int32
+        Less4SecCount:
+          type: integer
+          format: int32
+        Less6SecCount:
+          type: integer
+          format: int32
+        Less8SecCount:
+          type: integer
+          format: int32
+        Less10SecCount:
+          type: integer
+          format: int32
+        Less12SecCount:
+          type: integer
+          format: int32
+        Less14SecCount:
+          type: integer
+          format: int32
+        Less16SecCount:
+          type: integer
+          format: int32
+        Less18SecCount:
+          type: integer
+          format: int32
+        Over18SecCount:
+          type: integer
+          format: int32
+        ReadPercentage:
+          type: integer
+          format: int32
+        Less2SecPercentage:
+          type: integer
+          format: int32
+        Less4SecPercentage:
+          type: integer
+          format: int32
+        Less6SecPercentage:
+          type: integer
+          format: int32
+        Less8SecPercentage:
+          type: integer
+          format: int32
+        Less10SecPercentage:
+          type: integer
+          format: int32
+        Less12SecPercentage:
+          type: integer
+          format: int32
+        Less14SecPercentage:
+          type: integer
+          format: int32
+        Less16SecPercentage:
+          type: integer
+          format: int32
+        Less18SecPercentage:
+          type: integer
+          format: int32
+        Over18SecPercentage:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ComparableCampaign:
+      type: object
+      properties:
+        CampaignGuid:
+          type:
+          - string
+          - 'null'
+        CampaignName:
+          type:
+          - string
+          - 'null'
+        SentAt:
+          type: string
+          format: date-time
+        OpenCount:
+          type: integer
+          format: int64
+        ForwardCount:
+          type: integer
+          format: int64
+        PrintCount:
+          type: integer
+          format: int64
+        DesktopCount:
+          type: integer
+          format: int32
+        DesktopPercentage:
+          type: integer
+          format: int32
+        WebmailCount:
+          type: integer
+          format: int32
+        WebmailPercentage:
+          type: integer
+          format: int32
+        MobileCount:
+          type: integer
+          format: int32
+        MobilePercentage:
+          type: integer
+          format: int32
+        GlancedOrUnreadCount:
+          type: integer
+          format: int32
+        GlancedOrUnreadPercentage:
+          type: integer
+          format: int32
+        SkimmedCount:
+          type: integer
+          format: int32
+        SkimmedPercentage:
+          type: integer
+          format: int32
+        ReadCount:
+          type: integer
+          format: int32
+        ReadPercentage:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Campaigns:
+      type: object
+      properties:
+        Guids:
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          example:
-          - newsletter
-          - Q1-2026
+      additionalProperties: false
+    StringStringIEnumerableKeyValuePair:
+      type: object
+      properties:
+        Key:
+          type:
+          - string
+          - 'null'
+        Value:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    DetailedEngagementReport:
+      type: object
+      properties:
+        Less2SecCount:
+          type: integer
+          format: int32
+        Less4SecCount:
+          type: integer
+          format: int32
+        Less6SecCount:
+          type: integer
+          format: int32
+        Less8SecCount:
+          type: integer
+          format: int32
+        Less10SecCount:
+          type: integer
+          format: int32
+        Less12SecCount:
+          type: integer
+          format: int32
+        Less14SecCount:
+          type: integer
+          format: int32
+        Less16SecCount:
+          type: integer
+          format: int32
+        Less18SecCount:
+          type: integer
+          format: int32
+        Over18SecCount:
+          type: integer
+          format: int32
+        Less2SecPercentage:
+          type: integer
+          format: int32
+        Less4SecPercentage:
+          type: integer
+          format: int32
+        Less6SecPercentage:
+          type: integer
+          format: int32
+        Less8SecPercentage:
+          type: integer
+          format: int32
+        Less10SecPercentage:
+          type: integer
+          format: int32
+        Less12SecPercentage:
+          type: integer
+          format: int32
+        Less14SecPercentage:
+          type: integer
+          format: int32
+        Less16SecPercentage:
+          type: integer
+          format: int32
+        Less18SecPercentage:
+          type: integer
+          format: int32
+        Over18SecPercentage:
+          type: integer
+          format: int32
+        Less2SecAvgCount:
+          type: integer
+          format: int32
+        Less4SecAvgCount:
+          type: integer
+          format: int32
+        Less6SecAvgCount:
+          type: integer
+          format: int32
+        Less8SecAvgCount:
+          type: integer
+          format: int32
+        Less10SecAvgCount:
+          type: integer
+          format: int32
+        Less12SecAvgCount:
+          type: integer
+          format: int32
+        Less14SecAvgCount:
+          type: integer
+          format: int32
+        Less16SecAvgCount:
+          type: integer
+          format: int32
+        Less18SecAvgCount:
+          type: integer
+          format: int32
+        Over18SecAvgCount:
+          type: integer
+          format: int32
+        Less2SecAvgPercentage:
+          type: integer
+          format: int32
+        Less4SecAvgPercentage:
+          type: integer
+          format: int32
+        Less6SecAvgPercentage:
+          type: integer
+          format: int32
+        Less8SecAvgPercentage:
+          type: integer
+          format: int32
+        Less10SecAvgPercentage:
+          type: integer
+          format: int32
+        Less12SecAvgPercentage:
+          type: integer
+          format: int32
+        Less14SecAvgPercentage:
+          type: integer
+          format: int32
+        Less16SecAvgPercentage:
+          type: integer
+          format: int32
+        Less18SecAvgPercentage:
+          type: integer
+          format: int32
+        Over18SecAvgPercentage:
+          type: integer
+          format: int32
+      additionalProperties: false
+    HttpStatusCode:
+      enum:
+      - 100
+      - 101
+      - 102
+      - 103
+      - 200
+      - 201
+      - 202
+      - 203
+      - 204
+      - 205
+      - 206
+      - 207
+      - 208
+      - 226
+      - 300
+      - 301
+      - 302
+      - 303
+      - 304
+      - 305
+      - 306
+      - 307
+      - 308
+      - 400
+      - 401
+      - 402
+      - 403
+      - 404
+      - 405
+      - 406
+      - 407
+      - 408
+      - 409
+      - 410
+      - 411
+      - 412
+      - 413
+      - 414
+      - 415
+      - 416
+      - 417
+      - 421
+      - 422
+      - 423
+      - 424
+      - 426
+      - 428
+      - 429
+      - 431
+      - 451
+      - 500
+      - 501
+      - 502
+      - 503
+      - 504
+      - 505
+      - 506
+      - 507
+      - 508
+      - 510
+      - 511
+      type: integer
+      format: int32
+    GeolocationReport:
+      type: object
+      properties:
+        Region:
+          type:
+          - string
+          - 'null'
+        Country:
+          type:
+          - string
+          - 'null'
+        CountryCode:
+          type:
+          - string
+          - 'null'
+        DesktopCount:
+          type: integer
+          format: int32
+        MobileCount:
+          type: integer
+          format: int32
+        WebmailCount:
+          type: integer
+          format: int32
+        RegionCode:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+      additionalProperties: false
+    OpenCountReport:
+      type: object
+      properties:
+        CampaignGuid:
+          type:
+          - string
+          - 'null'
+        TotalOpens:
+          type: integer
+          format: int64
+        ReliableOpens:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        UnreliableOpens:
+          type:
+          - integer
+          - 'null'
+          format: int64
+      additionalProperties: false
+    MailClientEngagementReport:
+      type: object
+      properties:
+        Name:
+          type:
+          - string
+          - 'null'
+        ClientDetail:
+          type:
+          - string
+          - 'null'
+        PlatformDescription:
+          type:
+          - string
+          - 'null'
+        Count:
+          type: integer
+          format: int32
+        Total:
+          type: integer
+          format: int32
+        GlancedOrUnreadCount:
+          type: integer
+          format: int32
+        SkimmedCount:
+          type: integer
+          format: int32
+        ReadCount:
+          type: integer
+          format: int32
+        GlancedOrUnreadPercentage:
+          type: integer
+          format: int32
+        SkimmedPercentage:
+          type: integer
+          format: int32
+        ReadPercentage:
+          type: integer
+          format: int32
+      additionalProperties: false
   parameters:
     campaignGuidParam:
       name: campaignGuid
@@ -245,3 +2438,6 @@ components:
 externalDocs:
   description: Litmus Email Analytics API Documentation
   url: https://docs.litmus.com/email-analytics
+x-refined-from:
+- litmus-email-analytics-openapi.yml
+- litmus-openapi.json

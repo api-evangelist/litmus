@@ -1,0 +1,3315 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Litmus",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://analytics-api.litmus.com"
+    }
+  ],
+  "paths": {
+    "/api/v1/Campaigns/{guid}/MailClientUsageReport": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get mail client usage report for campaign",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/OpenCounts": {
+      "post": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get open counts from a set of campaigns",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "Guids",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/OpenCountsForUser/{userGuid}/{fromDate}/{untilDate}": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get a set of campaign open counts for a given period for a user.",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "userGuid",
+            "in": "path",
+            "description": "identifies the user of a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fromDate",
+            "in": "path",
+            "description": "date string in the format yyyy-MM-dd",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "untilDate",
+            "in": "path",
+            "description": "date string in the format yyyy-MM-dd",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/RenderingCategoryReport": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get rendering category report for campaign",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/GroupUsageReport": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get group usage report for campaign",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/BrowserUsageReport": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get browser usage report for campaign",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns": {
+      "post": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Create a new campaign",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "requestBody": {
+          "description": "a new campaign object",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCampaign"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCampaign"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCampaign"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCampaign"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campaign"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campaign"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campaign"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}": {
+      "put": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "updates an existing campaign",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "query",
+            "description": "identifies a campaign",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "guid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "an update campaign object",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCampaign"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCampaign"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCampaign"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCampaign"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Campaign updated"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/Start": {
+      "put": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Start a campaign",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/Restart": {
+      "put": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Restart a campaign with a new expiration date",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "newExpirationDate",
+            "in": "query",
+            "description": "identifies a new expiration date for the campaign",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/Clear": {
+      "put": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Clear all campaign data",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/ClearIndividual": {
+      "put": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Clear individual data for a campaign but retain aggregated data.",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpResponseMessage"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpResponseMessage"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpResponseMessage"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1/Campaigns/{guid}/EmailExportLink": {
+      "put": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Creates an export job with the given email",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "export options, including email recipient and optional date range",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportOptions"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportOptions"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportOptions"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/ConfigureNotificationEndpoint": {
+      "post": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Configure campaign notifications",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "requestBody": {
+          "description": "options for notification",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EndpointConfiguration"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EndpointConfiguration"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EndpointConfiguration"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EndpointConfiguration"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/Subscribe": {
+      "put": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Subscribe to notifications for a campaign",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/UnSubscribe": {
+      "put": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Unsubscribe to notifications for a campaign",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/Get": {
+      "post": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get campaign data from a set of campaigns",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "requestBody": {
+          "description": "identifies a set of campaigns",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Campaign"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Campaign"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Campaign"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/OpenCounts/{year}/{month}": {
+      "post": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get several campaign open counts from a given month",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "year",
+            "in": "query",
+            "description": "4-digit year",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "description": "max 2-digit month, ex: 1=January, 12=December",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "month",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "identifies a set of campaigns",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenCountReport"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenCountReport"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenCountReport"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/OpenCounts/{fromDate}/{untilDate}": {
+      "post": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get a set of campaign open counts for a given period",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "date string in the format yyyy-MM-dd",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "untilDate",
+            "in": "query",
+            "description": "date string in the format yyyy-MM-dd",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "fromDate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "untilDate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "identifies a set of campaigns",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenCountReport"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenCountReport"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenCountReport"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/OpenCountsForUser/{userGuid}/{monthDate}": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get a set of campaign open counts for a given month for a user.",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "userGuid",
+            "in": "path",
+            "description": "Identifies the user of a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "monthDate",
+            "in": "path",
+            "description": "date string in the format yyyy-MM",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenCountReport"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenCountReport"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenCountReport"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/Campaigns/OpenCountsByMonth": {
+      "post": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get a set of campaign open counts by month",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "requestBody": {
+          "description": "identifies a set of campaigns",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenCountsByMonth"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenCountsByMonth"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenCountsByMonth"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/Campaigns/AdvancedOpenCounts": {
+      "post": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get advanced open counts for a set of campaigns",
+        "requestBody": {
+          "description": "identifies a set of campaigns",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdvancedOpenCount"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdvancedOpenCount"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdvancedOpenCount"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1/Campaigns/{guid}/ActivityReport": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get activity report for campaign",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActivityReport"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActivityReport"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActivityReport"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActivityReport"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/ActivitySummaryReport": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get activity summary report for campaign",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivitySummaryReport"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivitySummaryReport"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivitySummaryReport"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/EngagementReport": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get engagement report for campaign",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EngagementReport"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EngagementReport"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EngagementReport"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/DetailedEngagementReport": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get detailed engagement report for campaign",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DetailedEngagementReport"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DetailedEngagementReport"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DetailedEngagementReport"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/GroupEngagementReport": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get group engagement report for a campaign",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GroupEngagementReport"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GroupEngagementReport"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GroupEngagementReport"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/MailClientEngagementReport": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Gets a report describing engagement at the user agent level.",
+        "description": "The naming of this method might make you think it returns engagement at the mail client level,\r\nbut it really returns engagement at the user agent level.<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "The unique identifier for the campaign the report should be generated for.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MailClientEngagementReport"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MailClientEngagementReport"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MailClientEngagementReport"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MailClientEngagementReport"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/DetailedMailClientEngagementReport": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get mail client engagement report for campaign",
+        "description": "<br /> <b>SLO</b>: Slow Reports / 3rd Party Dependencies / Very Resource Bound (15000ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetailedMailClientEngagementReport"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetailedMailClientEngagementReport"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetailedMailClientEngagementReport"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/GeolocationReport": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get geolocation report for campaign",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeolocationReport"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeolocationReport"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeolocationReport"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/Compare": {
+      "post": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get a comparable report for a set of campaigns",
+        "description": "<br /> <b>SLO</b>: Fast Reports / Resource Bound (2000ms)",
+        "requestBody": {
+          "description": "identifies a set of campaigns",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Campaigns"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ComparableCampaign"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ComparableCampaign"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ComparableCampaign"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ComparableCampaign"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/AllExpiringGuids/{untilDate}": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get all expiring guids until a given date",
+        "description": "<br /> <b>SLO</b>: Slow Reports / 3rd Party Dependencies / Very Resource Bound (15000ms)",
+        "parameters": [
+          {
+            "name": "untilDate",
+            "in": "path",
+            "description": "date string in the format yyyy-MM-dd",
+            "required": true,
+            "schema": {
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExpiringCampaign"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExpiringCampaign"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExpiringCampaign"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/SetExpiration/{guid}": {
+      "put": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Set a new expiration date for a campaign.",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "The guid of the EA campaign.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The new expiration date.",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/SetToNeverExpire/{guid}": {
+      "put": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Sets a single campaign to never expire.",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "The guid of the EA campaign.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/Campaigns/{guid}/FtpSite": {
+      "post": {
+        "tags": [
+          "FtpSites"
+        ],
+        "summary": "Create a new ftp site",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "new ftp site json",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FtpSite"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FtpSite"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FtpSite"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FtpSite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FtpSite"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FtpSite"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FtpSite"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "FtpSites"
+        ],
+        "summary": "Update an ftp site",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "new ftp site json",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FtpSite"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FtpSite"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FtpSite"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FtpSite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FtpSite"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FtpSite"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FtpSite"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "FtpSites"
+        ],
+        "summary": "Get an ftp site",
+        "description": "<br /> <b>SLO</b>: Standard / High Performance Data Store Backed (500ms)",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "identifies a campaign",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FtpSite"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FtpSite"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FtpSite"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ActivityReport": {
+        "type": "object",
+        "properties": {
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "RegionCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "RegionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "City": {
+            "type": "string",
+            "nullable": true
+          },
+          "Country": {
+            "type": "string",
+            "nullable": true
+          },
+          "Latitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "Longitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "MailClient": {
+            "type": "string",
+            "nullable": true
+          },
+          "CreatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ActivitySummaryReport": {
+        "type": "object",
+        "properties": {
+          "ReadAvgCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PrintAvgCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ForwardAvgCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PrintCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ForwardCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ReadCount": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AdvancedOpenCount": {
+        "type": "object",
+        "properties": {
+          "CampaignGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "TotalOpens": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "CreatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "SentAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ExpiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Campaign": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "BugHtml": {
+            "type": "string",
+            "nullable": true
+          },
+          "Guid": {
+            "type": "string",
+            "nullable": true
+          },
+          "ReportGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "UserGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "CreatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "SentAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "OpenCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "TrackGeolocation": {
+            "type": "boolean"
+          },
+          "ExpiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "NeverExpires": {
+            "type": "boolean"
+          },
+          "IncludeCustomData": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Campaigns": {
+        "type": "object",
+        "properties": {
+          "Guids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientRollupHistory": {
+        "type": "object",
+        "properties": {
+          "Client": {
+            "type": "string",
+            "nullable": true
+          },
+          "PercentageChanged": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "HistoricalPercentages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HistoricalPercentage"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ComparableCampaign": {
+        "type": "object",
+        "properties": {
+          "CampaignGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "CampaignName": {
+            "type": "string",
+            "nullable": true
+          },
+          "SentAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "OpenCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ForwardCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "PrintCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "DesktopCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "DesktopPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "WebmailCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "WebmailPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "MobileCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "MobilePercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "GlancedOrUnreadCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "GlancedOrUnreadPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "SkimmedCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "SkimmedPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ReadCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ReadPercentage": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DetailedClientRollupHistory": {
+        "type": "object",
+        "properties": {
+          "PercentageChanged": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "HistoricalPercentages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HistoricalPercentage"
+            },
+            "nullable": true
+          },
+          "MailClientDescription": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "UserAgentDescription": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "ColorScheme": {
+            "$ref": "#/components/schemas/UserAgentColorScheme"
+          },
+          "PlatformDescription": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "RenderingTypeDescription": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DetailedEngagementReport": {
+        "type": "object",
+        "properties": {
+          "Less2SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less4SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less6SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less8SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less10SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less12SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less14SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less16SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less18SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Over18SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less2SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less4SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less6SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less8SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less10SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less12SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less14SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less16SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less18SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Over18SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less2SecAvgCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less4SecAvgCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less6SecAvgCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less8SecAvgCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less10SecAvgCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less12SecAvgCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less14SecAvgCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less16SecAvgCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less18SecAvgCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Over18SecAvgCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less2SecAvgPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less4SecAvgPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less6SecAvgPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less8SecAvgPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less10SecAvgPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less12SecAvgPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less14SecAvgPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less16SecAvgPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less18SecAvgPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Over18SecAvgPercentage": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DetailedMailClientEngagementReport": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ReadCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less2SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less4SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less6SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less8SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less10SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less12SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less14SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less16SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less18SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Over18SecCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ReadPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less2SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less4SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less6SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less8SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less10SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less12SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less14SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less16SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Less18SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Over18SecPercentage": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EndpointConfiguration": {
+        "type": "object",
+        "properties": {
+          "UserGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "Endpoint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EngagementReport": {
+        "type": "object",
+        "properties": {
+          "GlancedOrUnreadPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "SkimmedPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ReadPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "GlancedOrUnreadAvgPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "SkimmedAvgPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ReadAvgPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "GlancedOrUnreadCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "SkimmedCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ReadCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Total": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExpiringCampaign": {
+        "type": "object",
+        "properties": {
+          "CampaignGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "CampaignName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ExpiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExportOptions": {
+        "type": "object",
+        "properties": {
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "FromDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "UntilDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "SplitFilesDaily": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FtpSite": {
+        "type": "object",
+        "properties": {
+          "CampaignGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "Protocol": {
+            "type": "string",
+            "nullable": true
+          },
+          "Url": {
+            "type": "string",
+            "nullable": true
+          },
+          "Port": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Username": {
+            "type": "string",
+            "nullable": true
+          },
+          "Password": {
+            "type": "string",
+            "nullable": true
+          },
+          "SshPrivateKeyPassphrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "SshPrivateKeyPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "Directory": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GeolocationReport": {
+        "type": "object",
+        "properties": {
+          "Region": {
+            "type": "string",
+            "nullable": true
+          },
+          "Country": {
+            "type": "string",
+            "nullable": true
+          },
+          "CountryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "DesktopCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "MobileCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "WebmailCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "RegionCode": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GroupEngagementReport": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Total": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "GlancedOrUnreadCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "SkimmedCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ReadCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "GlancedOrUnreadPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "SkimmedPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ReadPercentage": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HistoricalPercentage": {
+        "type": "object",
+        "properties": {
+          "Month": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Percentage": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HttpContent": {
+        "type": "object",
+        "properties": {
+          "Headers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StringStringIEnumerableKeyValuePair"
+            },
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HttpMethod": {
+        "type": "object",
+        "properties": {
+          "Method": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HttpRequestMessage": {
+        "type": "object",
+        "properties": {
+          "Version": {
+            "type": "string",
+            "nullable": true
+          },
+          "VersionPolicy": {
+            "$ref": "#/components/schemas/HttpVersionPolicy"
+          },
+          "Content": {
+            "$ref": "#/components/schemas/HttpContent"
+          },
+          "Method": {
+            "$ref": "#/components/schemas/HttpMethod"
+          },
+          "RequestUri": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "Headers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StringStringIEnumerableKeyValuePair"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "Properties": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true,
+            "readOnly": true,
+            "deprecated": true
+          },
+          "Options": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HttpResponseMessage": {
+        "type": "object",
+        "properties": {
+          "Version": {
+            "type": "string",
+            "nullable": true
+          },
+          "Content": {
+            "$ref": "#/components/schemas/HttpContent"
+          },
+          "StatusCode": {
+            "$ref": "#/components/schemas/HttpStatusCode"
+          },
+          "ReasonPhrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "Headers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StringStringIEnumerableKeyValuePair"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "TrailingHeaders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StringStringIEnumerableKeyValuePair"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "RequestMessage": {
+            "$ref": "#/components/schemas/HttpRequestMessage"
+          },
+          "IsSuccessStatusCode": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HttpStatusCode": {
+        "enum": [
+          100,
+          101,
+          102,
+          103,
+          200,
+          201,
+          202,
+          203,
+          204,
+          205,
+          206,
+          207,
+          208,
+          226,
+          300,
+          301,
+          302,
+          303,
+          304,
+          305,
+          306,
+          307,
+          308,
+          400,
+          401,
+          402,
+          403,
+          404,
+          405,
+          406,
+          407,
+          408,
+          409,
+          410,
+          411,
+          412,
+          413,
+          414,
+          415,
+          416,
+          417,
+          421,
+          422,
+          423,
+          424,
+          426,
+          428,
+          429,
+          431,
+          451,
+          500,
+          501,
+          502,
+          503,
+          504,
+          505,
+          506,
+          507,
+          508,
+          510,
+          511
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "HttpVersionPolicy": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "LeaderboardResponse": {
+        "type": "object",
+        "properties": {
+          "StartDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "TotalHits": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ClientRollups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientRollupHistory"
+            },
+            "nullable": true
+          },
+          "DetailedClientRollups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetailedClientRollupHistory"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MailClientEngagementReport": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "ClientDetail": {
+            "type": "string",
+            "nullable": true
+          },
+          "PlatformDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "Count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Total": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "GlancedOrUnreadCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "SkimmedCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ReadCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "GlancedOrUnreadPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "SkimmedPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ReadPercentage": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NewCampaign": {
+        "type": "object",
+        "properties": {
+          "UserGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "CampaignName": {
+            "type": "string",
+            "nullable": true
+          },
+          "IsPrivate": {
+            "type": "boolean"
+          },
+          "TrackGeolocation": {
+            "type": "boolean"
+          },
+          "IsIndividual": {
+            "type": "boolean"
+          },
+          "CreatedVia": {
+            "type": "string",
+            "nullable": true
+          },
+          "IncludeCustomData": {
+            "type": "boolean"
+          },
+          "TransitionalPii": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OpenCountReport": {
+        "type": "object",
+        "properties": {
+          "CampaignGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "TotalOpens": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ReliableOpens": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "UnreliableOpens": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OpenCountsByMonth": {
+        "type": "object",
+        "properties": {
+          "CampaignGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "TotalOpens": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Month": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Year": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StringStringIEnumerableKeyValuePair": {
+        "type": "object",
+        "properties": {
+          "Key": {
+            "type": "string",
+            "nullable": true
+          },
+          "Value": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateCampaign": {
+        "type": "object",
+        "properties": {
+          "UserGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "CampaignName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ExpiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "NeverExpires": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserAgentColorScheme": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  }
+}

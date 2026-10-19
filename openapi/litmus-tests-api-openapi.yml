@@ -122,35 +122,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  parameters:
-    testIdParam:
-      name: testId
-      in: path
-      description: Numeric identifier of the email test
-      required: true
-      schema:
-        type: integer
-        example: 12345678
-    pageParam:
-      name: page
-      in: query
-      description: Page number for paginated results (1-based)
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    perPageParam:
-      name: per_page
-      in: query
-      description: Number of results per page
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
   schemas:
+    Error:
+      type: object
+      description: An API error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication required
+        code:
+          type: string
+          description: Machine-readable error code
+          example: unauthorized
     TestList:
       type: object
       description: Paginated list of email tests
@@ -256,20 +242,34 @@ components:
         links_requested:
           type: boolean
           description: Whether link checking was requested
-    Error:
-      type: object
-      description: An API error response
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: Authentication required
-        code:
-          type: string
-          description: Machine-readable error code
-          example: unauthorized
+  parameters:
+    testIdParam:
+      name: testId
+      in: path
+      description: Numeric identifier of the email test
+      required: true
+      schema:
+        type: integer
+        example: 12345678
+    pageParam:
+      name: page
+      in: query
+      description: Page number for paginated results (1-based)
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    perPageParam:
+      name: per_page
+      in: query
+      description: Number of results per page
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   securitySchemes:
     basicAuth:
       type: http

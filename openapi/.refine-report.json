@@ -3,7 +3,8 @@
   "sources": [
     "_original/litmus-email-analytics-openapi.yml",
     "_original/litmus-instant-openapi.yml",
-    "_original/litmus-legacy-previews-openapi.yml"
+    "_original/litmus-legacy-previews-openapi.yml",
+    "_original/litmus-openapi.json"
   ],
   "outputs": [
     "litmus-analytics-api-openapi.yml",
@@ -11,18 +12,23 @@
     "litmus-clients-api-openapi.yml",
     "litmus-previews-api-openapi.yml",
     "litmus-results-api-openapi.yml",
-    "litmus-tests-api-openapi.yml"
+    "litmus-tests-api-openapi.yml",
+    "litmus-ftpsites-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
-    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sourced from openapi/_original/ (4 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "litmus-email-analytics-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "litmus-instant-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "litmus-legacy-previews-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "litmus-openapi.json: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "litmus-openapi.json: declared missing tag: Campaigns",
+    "litmus-openapi.json: declared missing tag: FtpSites",
+    "tag 'Campaigns' spans 2 source specs (litmus-email-analytics-openapi.yml, litmus-openapi.json): per-path servers applied",
     "tag 'Clients' spans 2 source specs (litmus-instant-openapi.yml, litmus-legacy-previews-openapi.yml): per-path servers applied",
-    "apis.yml register: already-registered"
+    "apis.yml register: written (+1 apis, 7 total)"
   ],
   "skipped": [
     "litmus-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",

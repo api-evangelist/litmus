@@ -1,0 +1,12 @@
+{
+ "url": "https://analytics-api.litmus.com/swagger/v1/swagger.json",
+ "final": "https://analytics-api.litmus.com/swagger/v1/swagger.json",
+ "status": 200,
+ "content_type": "application/json;charset=utf-8",
+ "bytes": 87662,
+ "sha256": "5d47e1ff3bafe775c8938b98a9cec0a4508abea94b9b998a501f9791b6203e50",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}

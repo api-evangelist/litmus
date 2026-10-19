@@ -1,0 +1,180 @@
+openapi: 3.2.0
+info:
+  title: Litmus Ftp Sites API
+  version: v1
+servers:
+- url: https://analytics-api.litmus.com
+tags:
+- name: FtpSites
+paths:
+  /api/v1/Campaigns/{guid}/FtpSite:
+    post:
+      tags:
+      - FtpSites
+      summary: Create a new ftp site
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: new ftp site json
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/FtpSite'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FtpSite'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/FtpSite'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/FtpSite'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/FtpSite'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FtpSite'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/FtpSite'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '409':
+          description: Conflict
+      operationId: postApiV1CampaignsByGuidFtpSite
+      x-operation-id-source: derived
+    put:
+      tags:
+      - FtpSites
+      summary: Update an ftp site
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: new ftp site json
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/FtpSite'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FtpSite'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/FtpSite'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/FtpSite'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/FtpSite'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FtpSite'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/FtpSite'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: putApiV1CampaignsByGuidFtpSite
+      x-operation-id-source: derived
+    get:
+      tags:
+      - FtpSites
+      summary: Get an ftp site
+      description: 'SLO: Standard / High Performance Data Store Backed (500ms)'
+      parameters:
+      - name: guid
+        in: path
+        description: identifies a campaign
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/FtpSite'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FtpSite'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/FtpSite'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: getApiV1CampaignsByGuidFtpSite
+      x-operation-id-source: derived
+components:
+  schemas:
+    FtpSite:
+      type: object
+      properties:
+        CampaignGuid:
+          type:
+          - string
+          - 'null'
+        Protocol:
+          type:
+          - string
+          - 'null'
+        Url:
+          type:
+          - string
+          - 'null'
+        Port:
+          type: integer
+          format: int32
+        Username:
+          type:
+          - string
+          - 'null'
+        Password:
+          type:
+          - string
+          - 'null'
+        SshPrivateKeyPassphrase:
+          type:
+          - string
+          - 'null'
+        SshPrivateKeyPath:
+          type:
+          - string
+          - 'null'
+        Directory:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
