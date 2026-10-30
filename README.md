@@ -1,4 +1,4 @@
-# Litmus (litmus)
+# Litmus
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,104 +66,146 @@
 
 Email testing and analytics platform that allows developers and marketers to preview, test, and analyze email campaigns across multiple email clients and devices before sending.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/litmus/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/litmus/refs/heads/main/apis.yml)
+**Areas:** Developer Tools · Email Testing · Marketing Tools · Quality Assurance · Email
 
-## Scope
+## Litmus on APIs.io
 
-- **Type:** Index
+Everything profiled for Litmus is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/litmus/](https://apis.io/providers/litmus/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (6)
 
-- Developer Tools
-- Email Testing
-- Marketing Tools
-- Quality Assurance
+- [Litmus Analytics API](https://apis.io/apis/litmus/litmus-analytics-api/) — Campaign engagement metrics and breakdowns
+- [Litmus Campaigns API](https://apis.io/apis/litmus/litmus-campaigns-api/) — Email campaign tracking and management
+- [Litmus Clients API](https://apis.io/apis/litmus/litmus-clients-api/) — Available email client configurations
+- [Litmus Previews API](https://apis.io/apis/litmus/litmus-previews-api/) — Email preview generation and management
+- [Litmus Results API](https://apis.io/apis/litmus/litmus-results-api/) — Test result retrieval
+- [Litmus Tests API](https://apis.io/apis/litmus/litmus-tests-api/) — Email test creation and management
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-01-01
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Litmus Instant API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-The Litmus Instant API provides REST endpoints for generating email preview screenshots across 40+ email clients by submitting HTML directly without needing to send an actual email. It is used by email editors and ESP integrations to deliver real-time rendering previews within their own platforms.
+- [Litmus Agentic Access](https://apis.io/agentic-access/litmus/litmus-agentic-access/)
 
-- **Human URL:** [https://docs.litmus.com/instant](https://docs.litmus.com/instant)
-- **Base URL:** `https://instant-api.litmus.com/v1`
+#### JSON Schema (1)
 
-#### Tags
+The data models the API reads and writes.
 
-- Email Clients
-- Email Testing
-- Previews
-- REST API
+- [Litmus Email Test](https://apis.io/schemas/litmus/litmus-email-test/)
 
-#### Properties
+#### JSON-LD (1)
 
-- [Documentation](https://docs.litmus.com/instant)
-- [Authentication](https://docs.litmus.com/oauth-integration-guide)
-- [OpenAPI](openapi/litmus-instant-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/litmus-instant.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/litmus-instant.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Linked-data contexts for the provider's vocabulary.
 
-### Litmus Legacy Previews API
+- [Litmus Context](https://apis.io/jsonld/litmus/litmus-context/)
 
-The Litmus Legacy Previews API provides REST endpoints for running email preview tests, spam filter tests, link-check tests, and code analysis against submitted email HTML. Tests are initiated by POSTing to the API and results are polled until rendering is complete.
+#### Collections (7)
 
-- **Human URL:** [https://docs.litmus.com/legacy-previews](https://docs.litmus.com/legacy-previews)
-- **Base URL:** `https://previews-api.litmus.com/api/v1`
+Postman and Open Collection request collections.
 
-#### Tags
+- [Litmus Email Analytics API](https://apis.io/collections/litmus/open-litmus-analytics-api/)
+- [Litmus Email Analytics Campaigns API](https://apis.io/collections/litmus/open-litmus-campaigns-api/)
+- [Litmus Email Analytics Clients API](https://apis.io/collections/litmus/open-litmus-clients-api/)
+- [Litmus Email Analytics API](https://apis.io/collections/litmus/open-litmus-email-analytics/)
+- [Litmus Instant API](https://apis.io/collections/litmus/open-litmus-instant/)
+- [Litmus Email Analytics Results API](https://apis.io/collections/litmus/open-litmus-results-api/)
+- [Litmus Email Analytics Tests API](https://apis.io/collections/litmus/open-litmus-tests-api/)
 
-- Email Testing
-- Previews
-- REST API
-- Spam Testing
+#### Governance rules (1)
 
-#### Properties
+Spectral rulesets for the provider's contracts.
 
-- [Documentation](https://docs.litmus.com/legacy-previews)
-- [OpenAPI](openapi/litmus-legacy-previews-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Litmus — jsonschema rules](https://apis.io/rules/litmus/litmus-jsonschema-spectral-rules/)
 
-### Litmus Email Analytics API
+#### Security (3)
 
-The Litmus Email Analytics API provides REST endpoints for retrieving email campaign engagement metrics including read rates, deletion rates, device types, email clients, geographic data, and forwarding activity. Campaign data is accessed by GUID and returns detailed activity summary reports.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.litmus.com/email-analytics](https://docs.litmus.com/email-analytics)
-- **Base URL:** `https://analytics-api.litmus.com/api/v1`
+- [Litmus Authentication](https://apis.io/security/litmus/litmus-authentication/)
+- [Litmus Domain Security](https://apis.io/security/litmus/litmus-domain-security/)
+- [Litmus Trust Center](https://apis.io/security/litmus/litmus-trust-center/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Campaign Metrics
-- Email Analytics
-- Reporting
-- REST API
+Published plans, tiers and prices.
 
-#### Properties
+- [Litmus Plans Pricing](https://apis.io/plans/litmus/litmus-plans-pricing/)
 
-- [Documentation](https://docs.litmus.com/email-analytics)
-- [OpenAPI](openapi/litmus-email-analytics-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/litmus-email-analytics.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/litmus-email-analytics.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-## Common Properties
+Published request limits.
 
-- [GitHub Organization](https://github.com/litmus)
-- [LinkedIn](https://www.linkedin.com/company/litmus-com)
+- [Litmus Rate Limits](https://apis.io/rate-limits/litmus/litmus-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Litmus Finops](https://apis.io/finops/litmus/litmus-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.litmus.com/)
 - [Documentation](https://docs.litmus.com/)
-- [Getting Started](https://www.litmus.com/getting-started/test-your-email)
+- [Getting started](https://www.litmus.com/getting-started/test-your-email)
 - [Blog](https://www.litmus.com/blog/)
-- [Community](https://litmus.com/community)
-- [Authentication](https://docs.litmus.com/oauth-integration-guide)
-- [Authentication](https://docs.litmus.com/oauth/web-application-flow)
-- [JSON Schema](json-schema/litmus-email-test-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/litmus-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Integrations](https://www.litmus.com/integrations)
+- [GitHub](https://github.com/litmus)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 35.1** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 62.5 |
+| Contract quality | 59.2 |
+| Contract governance | 9.8 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 40.5 |
+| Access clarity | 15.8 |
+
+**Agent readiness 23.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 21.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/litmus/](https://apis.io/providers/litmus/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Litmus: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/litmus/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
